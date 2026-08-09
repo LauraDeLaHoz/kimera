@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 978e4903566ac5b4aa7e3caf6ab3e695, type: 3}
+  m_Name: Kime_Mutation
+  m_EditorClassIdentifier: Assembly-CSharp::MutationData
+  mutationName: Mirada Instintiva
+  energyCost: 10
+  analysisTexts:
+  - "El conejo comprime sus m\xFAsculos gl\xFAteos izquierdos antes de saltar. Una
+    apertura clara."
+  - "La columna del jabal\xED se arquea hacia la derecha justo antes de cargar. El
+    costado queda expuesto."
+  - "La hiena ladea la cabeza 40 grados a la izquierda cuando eval\xFAa retroceder.
+    Una grieta en su armadura."
+  revealsWeakness: 1
+  weaknessWindowTurns: 3

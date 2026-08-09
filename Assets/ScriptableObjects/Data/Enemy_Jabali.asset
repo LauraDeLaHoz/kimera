@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57ddf34427e07c840af7ff35ee738258, type: 3}
+  m_Name: Enemy_Jabali
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyData
+  enemyName: "Jabal\xED Infectado"
+  sprite: {fileID: -721439677, guid: a76e4de41ae284e49af49abbc4b42017, type: 3}
+  enemyType: 1
+  maxHealth: 65
+  attackPower: 14
+  defense: 6
+  speed: 5
+  analysisDescription: "Rasca el suelo con la pezu\xF1a derecha. Sus flancos se hinchan
+    antes de moverse."
+  weaknessHint: "Ese momento de tensi\xF3n justo antes del movimiento parece una
+    oportunidad \xFAnica."
+  weakness: 1
+  skills:
+  - skillName: "Pisot\xF3n"
+    damage: 22
+  - skillName: Carga
+    damage: 40

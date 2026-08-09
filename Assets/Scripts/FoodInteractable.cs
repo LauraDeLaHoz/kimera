@@ -26,6 +26,8 @@ public class FoodInteractable : MonoBehaviour
         if (playerEnergy != null)
         {
             playerEnergy.AddEnergy(foodData.energyValue);
+            QuestManager.Instance.AddProgress(
+            QuestType.EatFood);
         }
 
         // Buscar animator del billboard
