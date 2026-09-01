@@ -17,14 +17,14 @@ RenderSettings:
   m_Fog: 1
   m_FogColor: {r: 1, g: 1, b: 1, a: 0.6039216}
   m_FogMode: 3
-  m_FogDensity: 0.015
+  m_FogDensity: 0.023
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 1, g: 0.8624687, b: 0.740566, a: 1}
-  m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
-  m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
+  m_AmbientSkyColor: {r: 0, g: 0, b: 0, a: 1}
+  m_AmbientEquatorColor: {r: 0.4528302, g: 0.3192785, b: 0.15592737, a: 1}
+  m_AmbientGroundColor: {r: 0.8867924, g: 0.591195, b: 0, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 3
+  m_AmbientMode: 1
   m_SubtractiveShadowColor: {r: 0.22342363, g: 0.20291919, b: 0.4528302, a: 1}
   m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
   m_HaloStrength: 0.5
@@ -310,7 +310,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3479137352382633959, guid: 6b8aecedf29cb764da1656ea79544074, type: 3}
       propertyPath: m_ClearFlags
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3479137352382633959, guid: 6b8aecedf29cb764da1656ea79544074, type: 3}
       propertyPath: orthographic
@@ -2392,7 +2392,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -220.1, y: 0}
+  m_AnchoredPosition: {x: -220.09998, y: 0}
   m_SizeDelta: {x: -440.20004, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2014688810

@@ -15,8 +15,8 @@ MonoBehaviour:
   NodeGraph: {fileID: 11400000}
   Rect:
     serializedVersion: 2
-    x: -255
-    y: 81
+    x: -556
+    y: 41
     width: 190
     height: 135
   IsDragging: 1
@@ -31,6 +31,36 @@ MonoBehaviour:
   _externalFunctionName: 
   CharacterNameKey: 
   SentenceTextKey: 
+--- !u!114 &-8140379019059298903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38789157e7795244280823d019530045, type: 3}
+  m_Name: Variable Condition Node
+  m_EditorClassIdentifier: 
+  NodeGraph: {fileID: 11400000}
+  Rect:
+    serializedVersion: 2
+    x: -526
+    y: 398
+    width: 240
+    height: 160
+  IsDragging: 1
+  IsSelected: 0
+  _variableName: guideQuestState
+  _conditionType: 0
+  _boolTargetValue: 0
+  _intTargetValue: 1
+  _floatTargetValue: 0
+  _stringTargetValue: 
+  ParentNodes: []
+  TrueChildNode: {fileID: 5963565879988732016}
+  FalseChildNode: {fileID: 3855924427070863417}
 --- !u!114 &-7807149824131824825
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46,8 +76,8 @@ MonoBehaviour:
   NodeGraph: {fileID: 11400000}
   Rect:
     serializedVersion: 2
-    x: 65
-    y: 315
+    x: -187
+    y: 265
     width: 190
     height: 135
   IsDragging: 1
@@ -77,8 +107,8 @@ MonoBehaviour:
   NodeGraph: {fileID: 11400000}
   Rect:
     serializedVersion: 2
-    x: 937
-    y: 287
+    x: 873
+    y: 322
     width: 190
     height: 80
   IsDragging: 1
@@ -102,17 +132,16 @@ MonoBehaviour:
   NodeGraph: {fileID: 11400000}
   Rect:
     serializedVersion: 2
-    x: 721
-    y: 151
+    x: 431
+    y: 135
     width: 190
     height: 80
   IsDragging: 1
   IsSelected: 0
   _functionName: StartQuest
   _description: 
-  ParentNodes:
-  - {fileID: -1906387413390372846}
-  ChildNode: {fileID: -4356483723954027688}
+  ParentNodes: []
+  ChildNode: {fileID: 8847589081067314970}
 --- !u!114 &-1906387413390372846
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -128,12 +157,12 @@ MonoBehaviour:
   NodeGraph: {fileID: 11400000}
   Rect:
     serializedVersion: 2
-    x: 487
-    y: 143
+    x: 186
+    y: 103
     width: 190
     height: 135
   IsDragging: 1
-  IsSelected: 0
+  IsSelected: 1
   _sentence:
     CharacterName: Guia
     Text: '"y Toma esta comida."'
@@ -144,6 +173,36 @@ MonoBehaviour:
   _externalFunctionName: 
   CharacterNameKey: 
   SentenceTextKey: 
+--- !u!114 &-404146931895650085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38789157e7795244280823d019530045, type: 3}
+  m_Name: Variable Condition Node
+  m_EditorClassIdentifier: 
+  NodeGraph: {fileID: 11400000}
+  Rect:
+    serializedVersion: 2
+    x: -818
+    y: 205
+    width: 240
+    height: 160
+  IsDragging: 1
+  IsSelected: 0
+  _variableName: guideQuestState
+  _conditionType: 0
+  _boolTargetValue: 0
+  _intTargetValue: 0
+  _floatTargetValue: 0
+  _stringTargetValue: 
+  ParentNodes: []
+  TrueChildNode: {fileID: -8726050095164298298}
+  FalseChildNode: {fileID: -8140379019059298903}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,12 +223,48 @@ MonoBehaviour:
   - {fileID: 9221875689905556872}
   - {fileID: 4340343547596767478}
   - {fileID: -7807149824131824825}
-  VariablesConfig: {fileID: 0}
+  - {fileID: -404146931895650085}
+  - {fileID: -8140379019059298903}
+  - {fileID: 5963565879988732016}
+  - {fileID: 3855924427070863417}
+  - {fileID: 8847589081067314970}
+  VariablesConfig: {fileID: 11400000, guid: 0318599c41ad2a241b9722b7fcb17074, type: 2}
   _localizationTableName: 
   _characterNamesLocalizationName: 
   NodeToDrawLineFrom: {fileID: 0}
   LinePosition: {x: 0, y: 0}
   IsLocalizationSetUp: 0
+--- !u!114 &3855924427070863417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a32a464d8ccff4e40a60c45b40a1e648, type: 3}
+  m_Name: Sentence Node
+  m_EditorClassIdentifier: 
+  NodeGraph: {fileID: 11400000}
+  Rect:
+    serializedVersion: 2
+    x: -240
+    y: 658
+    width: 190
+    height: 155
+  IsDragging: 1
+  IsSelected: 0
+  _sentence:
+    CharacterName: post-mision
+    Text: Gracias por tu ayuda
+    CharacterSprite: {fileID: 0}
+  ParentNodes: []
+  ChildNode: {fileID: 0}
+  _isExternalFunc: 1
+  _externalFunctionName: EndDialogue
+  CharacterNameKey: 
+  SentenceTextKey: 
 --- !u!114 &4340343547596767478
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,8 +280,8 @@ MonoBehaviour:
   NodeGraph: {fileID: 11400000}
   Rect:
     serializedVersion: 2
-    x: 268
-    y: 343
+    x: 61
+    y: 303
     width: 190
     height: 135
   IsDragging: 1
@@ -201,6 +296,62 @@ MonoBehaviour:
   _externalFunctionName: 
   CharacterNameKey: 
   SentenceTextKey: 
+--- !u!114 &5963565879988732016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a32a464d8ccff4e40a60c45b40a1e648, type: 3}
+  m_Name: Sentence Node
+  m_EditorClassIdentifier: 
+  NodeGraph: {fileID: 11400000}
+  Rect:
+    serializedVersion: 2
+    x: -62
+    y: 465
+    width: 190
+    height: 155
+  IsDragging: 1
+  IsSelected: 0
+  _sentence:
+    CharacterName: Recortatorio
+    Text: "Recuerda ir a hablar con el vendedor de la carnicer\xEDa."
+    CharacterSprite: {fileID: 0}
+  ParentNodes: []
+  ChildNode: {fileID: 0}
+  _isExternalFunc: 1
+  _externalFunctionName: EndDialogue
+  CharacterNameKey: 
+  SentenceTextKey: 
+--- !u!114 &8847589081067314970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54f4b3c64aaf434ea0df52154c1c7680, type: 3}
+  m_Name: External Function Node
+  m_EditorClassIdentifier: 
+  NodeGraph: {fileID: 11400000}
+  Rect:
+    serializedVersion: 2
+    x: 654
+    y: 208
+    width: 190
+    height: 80
+  IsDragging: 1
+  IsSelected: 0
+  _functionName: CompleteTalkNPC
+  _description: 
+  ParentNodes: []
+  ChildNode: {fileID: -4356483723954027688}
 --- !u!114 &9221875689905556872
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -216,8 +367,8 @@ MonoBehaviour:
   NodeGraph: {fileID: 11400000}
   Rect:
     serializedVersion: 2
-    x: -12
-    y: 156
+    x: -313
+    y: 116
     width: 190
     height: 135
   IsDragging: 1

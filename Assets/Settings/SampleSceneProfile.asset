@@ -21,16 +21,16 @@ MonoBehaviour:
     m_Value: 1
   intensity:
     m_OverrideState: 1
-    m_Value: 2.91
+    m_Value: 2.84
   scatter:
     m_OverrideState: 1
-    m_Value: 0.514
+    m_Value: 1
   clamp:
     m_OverrideState: 0
     m_Value: 65472
   tint:
     m_OverrideState: 1
-    m_Value: {r: 1, g: 0.626076, b: 0.0047169924, a: 1}
+    m_Value: {r: 0.15886435, g: 0.39036748, b: 0.6603774, a: 1}
   highQualityFiltering:
     m_OverrideState: 1
     m_Value: 1
@@ -62,16 +62,16 @@ MonoBehaviour:
   active: 1
   color:
     m_OverrideState: 1
-    m_Value: {r: 0.022739401, g: 0.03826488, b: 0.066037714, a: 1}
+    m_Value: {r: 0, g: 0, b: 0, a: 1}
   center:
     m_OverrideState: 0
     m_Value: {x: 0.6, y: 0.6}
   intensity:
     m_OverrideState: 1
-    m_Value: 0.357
+    m_Value: 0.238
   smoothness:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 0.684
   rounded:
     m_OverrideState: 0
     m_Value: 1
@@ -90,19 +90,19 @@ MonoBehaviour:
   active: 1
   postExposure:
     m_OverrideState: 1
-    m_Value: 0.2
+    m_Value: 0.88
   contrast:
     m_OverrideState: 1
-    m_Value: -10
+    m_Value: 24
   colorFilter:
-    m_OverrideState: 0
-    m_Value: {r: 1, g: 1, b: 1, a: 1}
+    m_OverrideState: 1
+    m_Value: {r: 0.8537736, g: 0.87051624, b: 1, a: 1}
   hueShift:
     m_OverrideState: 0
-    m_Value: 0
+    m_Value: -180
   saturation:
     m_OverrideState: 1
-    m_Value: 5
+    m_Value: 7
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,13 +177,13 @@ MonoBehaviour:
   active: 1
   shadows:
     m_OverrideState: 1
-    m_Value: {x: 0.6455567, y: 0.32921696, z: 1, w: 0.19264448}
+    m_Value: {x: 0.08745265, y: 0.274369, z: 1, w: -1}
   midtones:
     m_OverrideState: 1
-    m_Value: {x: 1, y: 0.88673335, z: 0.5469338, w: 0.1576182}
+    m_Value: {x: 1, y: 0.60305715, z: 0.06482011, w: 0.17513134}
   highlights:
     m_OverrideState: 1
-    m_Value: {x: 1, y: 0.41604638, z: 0, w: 0.5429071}
+    m_Value: {x: 1, y: 0.3013838, z: 0, w: 0.89316976}
   shadowsStart:
     m_OverrideState: 0
     m_Value: 0
@@ -210,14 +210,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   active: 0
   mode:
-    m_OverrideState: 0
-    m_Value: 0
+    m_OverrideState: 1
+    m_Value: 1
   quality:
     m_OverrideState: 1
-    m_Value: 2
+    m_Value: 1
   intensity:
     m_OverrideState: 1
-    m_Value: 0.6
+    m_Value: 1
   clamp:
-    m_OverrideState: 0
-    m_Value: 0.05
+    m_OverrideState: 1
+    m_Value: 0.153

@@ -151,6 +151,17 @@ public class InSceneCombatController : MonoBehaviour
 
         // 3 — Desactivar movimiento del jugador + iniciar animación de entrada
         SetPlayerMovement(false);
+
+
+        //ermm lineas que agregue (donuts) 
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
+
+
+
+
         if (playerCombatAnimator != null)
             playerCombatAnimator.EnterCombat();
         else
@@ -193,6 +204,10 @@ public class InSceneCombatController : MonoBehaviour
         // Re-activar movimiento + volver a animación de exploración
         playerCombatAnimator?.ExitCombat();
         SetPlayerMovement(true);
+
+        // para que vuelva a moverse el player ok buddy :3
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
 
         // Informar al HungerSystem
         HungerSystem.Instance?.ExitCombat();

@@ -10,7 +10,12 @@ public class QuestData : ScriptableObject
     public string questName;
 
     [TextArea]
+    [Tooltip("Texto que se muestra en el panel de OBJETIVO mientras la misión está en curso. Ej: 'Encuentra al guía'")]
     public string description;
+
+    [TextArea]
+    [Tooltip("Texto del toast de LOGRO al completarla. Si lo dejas vacío se usa 'Completado: ' + questName. Ej: 'Disfruta tu estancia en Kimera City'")]
+    public string achievementText;
 
     [Header("Goal")]
     public QuestType questType;
@@ -25,8 +30,14 @@ public class QuestData : ScriptableObject
 
     public Vector3 spawnOffset;
 
-    [HideInInspector]
-    public bool completed;
+    [Header("Narrativa lineal")]
+    [Tooltip("Si se asigna, QuestManager la inicia automáticamente en cuanto esta termina. Útil para encadenar la historia sin scripts extra por cada paso.")]
+    public QuestData autoStartNextQuest;
+
+    // NOTA: el viejo campo "completed" se eliminó a propósito.
+    // El estado de la misión (NotStarted/InProgress/Completed) ya no vive
+    // en el asset: lo controla QuestManager en runtime. Esto evita que el
+    // ScriptableObject quede "recordando" progreso entre partidas/sesiones.
 }
 
 public enum QuestType
@@ -34,5 +45,6 @@ public enum QuestType
     EatFood,
     BuyItem,
     TalkNPC,
-    ReachLocation
+    ReachLocation,
+    Explore // nuevo: para objetivos ambientales basados en tiempo, no en acción directa
 }
