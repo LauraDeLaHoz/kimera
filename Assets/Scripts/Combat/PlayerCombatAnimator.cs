@@ -43,11 +43,12 @@ public class PlayerCombatAnimator : MonoBehaviour
     [Tooltip("Si 'Combat Sprite GO' tiene un Animator, fuerza este estado al activarlo.\n" +
              "Déjalo vacío si el estado por defecto del Animator Controller ya es correcto\n" +
              "o si el sprite de combate no tiene Animator (solo SpriteRenderer estático).")]
-    [SerializeField] private string combatIdleState = "AnimacionCombate1";
+    [SerializeField] private string combatIdleState = "Idle 0";
 
     // ── Cache ────────────────────────────────────────────────────────────────
 
     private Alpha_2D_Character_In_3D_World[] _allDirScripts;
+    private bool _inCombat = false;
 
     // ── Lifecycle ─────────────────────────────────────────────────────────────
 
@@ -75,38 +76,53 @@ public class PlayerCombatAnimator : MonoBehaviour
     {
         StopAllCoroutines();
 
-        // 1. Desactivar script de dirección para que no interfiera
+        _inCombat = true;
+
+        // 1. Desactivar scripts de dirección
         SetDirectionScripts(false);
 
         // 2. Ocultar sprite de exploración
         if (explorationSpriteGO != null)
             explorationSpriteGO.SetActive(false);
 
-        // 3. Mostrar sprite de combate
+        // 3. Activar sprite de combate
         if (combatSpriteGO != null)
         {
             combatSpriteGO.SetActive(true);
 
-            // Si tiene Animator y hay un estado configurado, forzarlo en el siguiente frame.
-            if (!string.IsNullOrEmpty(combatIdleState))
+            Animator anim = combatSpriteGO.GetComponent<Animator>()
+                         ?? combatSpriteGO.GetComponentInChildren<Animator>();
+
+            if (anim != null)
             {
-                var anim = combatSpriteGO.GetComponent<Animator>()
-                        ?? combatSpriteGO.GetComponentInChildren<Animator>();
-                if (anim != null)
-                    StartCoroutine(ForcePlayState(anim, combatIdleState));
+                // El Animator utiliza "speed" en minúscula
+                if (HasParam(anim, "speed"))
+                    anim.SetFloat("speed", 0f);
+
+                // Forzar Idle
+                if (!string.IsNullOrEmpty(combatIdleState))
+                {
+                    anim.Play(combatIdleState, -1, 0f);
+                    anim.Update(0f);
+                }
+
+                Debug.Log(
+                    $"[PlayerCombatAnimator] Combate → Idle en {anim.gameObject.name}"
+                );
             }
         }
-        else
-        {
-            Debug.LogWarning("[PlayerCombatAnimator] 'Combat Sprite GO' no asignado — " +
-                             "arrastra el hijo 'sprite de combate' al Inspector.");
-        }
+
+       
+
     }
 
     /// <summary>Llamar al salir del combate. Restaura el sprite de exploración y oculta el de combate.</summary>
     public void ExitCombat()
     {
         StopAllCoroutines();
+
+        _inCombat = false;
+
         ApplyExplorationState();
     }
 
@@ -142,5 +158,35 @@ public class PlayerCombatAnimator : MonoBehaviour
         anim.Play(stateName, -1, 0f);
         anim.Update(0f);
         Debug.Log($"[PlayerCombatAnimator] ✓ Play('{stateName}') en '{anim.gameObject.name}'");
+    }
+
+    private void LateUpdate()
+    {
+        if (!_inCombat)
+            return;
+
+        if (combatSpriteGO == null)
+            return;
+
+        Animator anim = combatSpriteGO.GetComponent<Animator>()
+                     ?? combatSpriteGO.GetComponentInChildren<Animator>();
+
+        if (anim == null)
+            return;
+
+        if (HasParam(anim, "speed"))
+            anim.SetFloat("speed", 0f);
+    }
+
+
+    private bool HasParam(Animator anim, string name)
+    {
+        foreach (var p in anim.parameters)
+        {
+            if (p.name == name)
+                return true;
+        }
+
+        return false;
     }
 }

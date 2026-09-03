@@ -6813,7 +6813,7 @@ Camera:
   m_GameObject: {fileID: 622356509}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 2
+  m_ClearFlags: 1
   m_BackGroundColor: {r: 0.07, g: 0.07, b: 0.11, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -6864,11 +6864,11 @@ Transform:
   m_GameObject: {fileID: 622356509}
   serializedVersion: 2
   m_LocalRotation: {x: 0.029169805, y: -0.1465297, z: -0.0025377925, w: 0.98877287}
-  m_LocalPosition: {x: 1.4859933, y: 0.049999952, z: -1.5089922}
+  m_LocalPosition: {x: -22.88, y: 0.91, z: -13.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1932790537}
+  m_Father: {fileID: 1044112739}
   m_LocalEulerAnglesHint: {x: 3.264, y: -16.881, z: -0.779}
 --- !u!114 &622356512
 MonoBehaviour:
@@ -8285,7 +8285,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4278190080
   m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -8298,7 +8298,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
@@ -10450,7 +10450,7 @@ MonoBehaviour:
   playerMovementScripts:
   - {fileID: 1044112737}
   playerCombatAnimator: {fileID: 0}
-  explorationCamera: {fileID: 0}
+  explorationCamera: {fileID: 210496956}
   combatCamera: {fileID: 622356510}
   worldObjectsToHide:
   - {fileID: 1000945976}
@@ -12997,7 +12997,9 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 350083174}
+  - {fileID: 622356511}
   - {fileID: 874005444}
+  - {fileID: 1147429341}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1055577352
@@ -14872,6 +14874,37 @@ MonoBehaviour:
   onFirstTrigger:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &1147429340
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1147429341}
+  m_Layer: 0
+  m_Name: CombatCameraArchor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1147429341
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1147429340}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.41, z: -1.16}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1044112739}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1147700646
 GameObject:
   m_ObjectHideFlags: 0
@@ -25753,9 +25786,6 @@ PrefabInstance:
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 2415694177443615989, guid: 47064af0d9074144fa200600ca6e281f, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 622356511}
-    - targetCorrespondingSourceObject: {fileID: 2415694177443615989, guid: 47064af0d9074144fa200600ca6e281f, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 1856245194}
     - targetCorrespondingSourceObject: {fileID: 2415694177443615989, guid: 47064af0d9074144fa200600ca6e281f, type: 3}
       insertIndex: -1
@@ -25914,7 +25944,7 @@ MonoBehaviour:
   enemies:
   - {fileID: 11400000, guid: 7302bf28eba5bf84aa9a29f9b2454f0f, type: 2}
   - {fileID: 11400000, guid: d0f022e6365b547409f834286c55a210, type: 2}
-  combatCameraAnchor: {fileID: 0}
+  combatCameraAnchor: {fileID: 1147429341}
   enemyVisuals: []
   oneTimeOnly: 1
 --- !u!65 &1913786463
@@ -25947,7 +25977,7 @@ Transform:
   m_GameObject: {fileID: 1913786461}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.11503792, y: -1.1922446, z: 4.3147554}
+  m_LocalPosition: {x: -5.91, y: -1.1922446, z: -3.59}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
