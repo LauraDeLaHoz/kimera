@@ -1,5 +1,3 @@
-
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -19,9 +17,9 @@ using TMPro;
 public class ActionButtonStyle
 {
     [Tooltip("Texto que muestra el botón")]
-    public string label         = "";
+    public string label = "";
     [Tooltip("Color de fondo del botón")]
-    public Color  backgroundColor = Color.white;
+    public Color backgroundColor = Color.white;
     [Tooltip("Sprite del fondo (null = sin sprite, usa solo el color)")]
     public Sprite backgroundSprite = null;
 }
@@ -38,15 +36,15 @@ public class EnemyHUDElement
     {
         if (healthBar == null) return;
         healthBar.maxValue = max;
-        healthBar.value    = current;
+        healthBar.value = current;
     }
 }
 
 [Serializable]
 public class EnemyCombatView
 {
-    public Animator animator;
-    public SpriteRenderer spriteRenderer;
+    [Tooltip("Visual 3D del enemigo (GO placeholder en la escena, ej. la cápsula).")]
+    public EnemyCombatVisual3D visual;
     public ParticleSystem instinctEffect;
 }
 
@@ -57,11 +55,11 @@ public class CombatUI : MonoBehaviour
 {
     // ── Player HUD ─────────────────────────────────────────────────────────────
     [Header("Player HUD")]
-    [SerializeField] private Slider            playerHealthBar;
-    [SerializeField] private Slider            playerEnergyBar;
-    [SerializeField] private TextMeshProUGUI   playerHealthText;
-    [SerializeField] private Image             playerPortrait;
-    [SerializeField] private Animator          playerAnimator;
+    [SerializeField] private Slider playerHealthBar;
+    [SerializeField] private Slider playerEnergyBar;
+    [SerializeField] private TextMeshProUGUI playerHealthText;
+    [SerializeField] private Image playerPortrait;
+    [SerializeField] private Animator playerAnimator;
 
     // ── Enemy HUDs & views ─────────────────────────────────────────────────────
     [Header("Enemy HUDs")]
@@ -71,20 +69,20 @@ public class CombatUI : MonoBehaviour
     // ── Action Panel ────────────────────────────────────────────────────────────
     [Header("Action Panel")]
     [SerializeField] private GameObject actionPanel;
-    [SerializeField] private Button     btnAttack;
-    [SerializeField] private Button     btnInstinct;
-    [SerializeField] private Button     btnItem;
-    [SerializeField] private Button     btnDefend;
+    [SerializeField] private Button btnAttack;
+    [SerializeField] private Button btnInstinct;
+    [SerializeField] private Button btnItem;
+    [SerializeField] private Button btnDefend;
 
     [Header("Estilos de botones (edita aquí → se aplica en Play)")]
     [Tooltip("Estilo del botón ATACAR")]
-    public ActionButtonStyle attackStyle   = new ActionButtonStyle { label = "ATACAR",   backgroundColor = new Color(0.65f, 0.13f, 0.13f) };
+    public ActionButtonStyle attackStyle = new ActionButtonStyle { label = "ATACAR", backgroundColor = new Color(0.65f, 0.13f, 0.13f) };
     [Tooltip("Estilo del botón INSTINTO")]
     public ActionButtonStyle instinctStyle = new ActionButtonStyle { label = "INSTINTO", backgroundColor = new Color(0.13f, 0.38f, 0.65f) };
     [Tooltip("Estilo del botón ÍTEM")]
-    public ActionButtonStyle itemStyle     = new ActionButtonStyle { label = "ÍTEM",     backgroundColor = new Color(0.13f, 0.52f, 0.22f) };
+    public ActionButtonStyle itemStyle = new ActionButtonStyle { label = "ÍTEM", backgroundColor = new Color(0.13f, 0.52f, 0.22f) };
     [Tooltip("Estilo del botón DEFENDER")]
-    public ActionButtonStyle defendStyle   = new ActionButtonStyle { label = "DEFENDER", backgroundColor = new Color(0.38f, 0.30f, 0.52f) };
+    public ActionButtonStyle defendStyle = new ActionButtonStyle { label = "DEFENDER", backgroundColor = new Color(0.38f, 0.30f, 0.52f) };
 
     [Header("Sprite retrato del jugador")]
     [Tooltip("Sprite que se muestra en el retrato de Mike en el HUD")]
@@ -93,18 +91,18 @@ public class CombatUI : MonoBehaviour
     // ── Item Panel ──────────────────────────────────────────────────────────────
     [Header("Item Panel")]
     [SerializeField] private GameObject itemPanel;
-    [SerializeField] private Transform  itemListContainer;
+    [SerializeField] private Transform itemListContainer;
     [SerializeField] private GameObject itemButtonPrefab;
 
     // ── Analysis Panel ──────────────────────────────────────────────────────────
     [Header("Analysis Panel")]
-    [SerializeField] private GameObject      analysisPanel;
+    [SerializeField] private GameObject analysisPanel;
     [SerializeField] private TextMeshProUGUI analysisMainText;
     [SerializeField] private TextMeshProUGUI analysisHintText;
 
     // ── Message Box ─────────────────────────────────────────────────────────────
     [Header("Message Box")]
-    [SerializeField] private GameObject      messageBox;
+    [SerializeField] private GameObject messageBox;
     [SerializeField] private TextMeshProUGUI messageText;
 
     // ── Damage Numbers ──────────────────────────────────────────────────────────
@@ -119,18 +117,15 @@ public class CombatUI : MonoBehaviour
     // ── Entrance ────────────────────────────────────────────────────────────────
     [Header("Entrance")]
     [SerializeField] private CanvasGroup mainCanvasGroup;
-    [SerializeField] private float       entranceDuration = 1.2f;
+    [SerializeField] private float entranceDuration = 1.2f;
 
     // ── Runtime state ───────────────────────────────────────────────────────────
-    private CombatManager     _combatManager;
-    private List<ItemData>    _inventory     = new List<ItemData>();
-    private EnemyCombatant    _selectedEnemy;
-    private Coroutine         _messageRoutine;
+    private CombatManager _combatManager;
+    private List<ItemData> _inventory = new List<ItemData>();
+    private EnemyCombatant _selectedEnemy;
+    private Coroutine _messageRoutine;
     // Runtime quantity snapshot — never modifies ScriptableObject assets
     private readonly Dictionary<ItemData, int> _runtimeQty = new Dictionary<ItemData, int>();
-
-    private static readonly Color FlashWhite = Color.white;
-    private static readonly Color FlashRed   = new Color(1f, 0.2f, 0.2f);
 
     // ── Lifecycle ──────────────────────────────────────────────────────────────
 
@@ -141,11 +136,11 @@ public class CombatUI : MonoBehaviour
         _combatManager = CombatManager.Instance;
         if (_combatManager == null) return;
 
-        _combatManager.onShowAnalysisPanel  += OnAnalysisPanelRequested;
-        _combatManager.onActionPerformed    += ShowMessage;
-        _combatManager.onPlayerTurnStarted  += OnPlayerTurnStarted;
-        _combatManager.onVictory            += ShowVictoryScreen;
-        _combatManager.onDefeat             += ShowDefeatScreen;
+        _combatManager.onShowAnalysisPanel += OnAnalysisPanelRequested;
+        _combatManager.onActionPerformed += ShowMessage;
+        _combatManager.onPlayerTurnStarted += OnPlayerTurnStarted;
+        _combatManager.onVictory += ShowVictoryScreen;
+        _combatManager.onDefeat += ShowDefeatScreen;
 
         WireActionButtons();
         WireEnemySelectionButtons();
@@ -163,10 +158,10 @@ public class CombatUI : MonoBehaviour
     /// </summary>
     public void ApplyButtonStyles()
     {
-        ApplyToButton(btnAttack,   attackStyle);
+        ApplyToButton(btnAttack, attackStyle);
         ApplyToButton(btnInstinct, instinctStyle);
-        ApplyToButton(btnItem,     itemStyle);
-        ApplyToButton(btnDefend,   defendStyle);
+        ApplyToButton(btnItem, itemStyle);
+        ApplyToButton(btnDefend, defendStyle);
 
         if (playerPortrait != null && playerPortraitSprite != null)
             playerPortrait.sprite = playerPortraitSprite;
@@ -187,9 +182,9 @@ public class CombatUI : MonoBehaviour
 
         // Sincronizar también los colores del ColorBlock del Button
         ColorBlock cb = btn.colors;
-        cb.normalColor      = style.backgroundColor;
+        cb.normalColor = style.backgroundColor;
         cb.highlightedColor = style.backgroundColor + new Color(0.15f, 0.15f, 0.15f);
-        cb.pressedColor     = style.backgroundColor - new Color(0.15f, 0.15f, 0.15f);
+        cb.pressedColor = style.backgroundColor - new Color(0.15f, 0.15f, 0.15f);
         btn.colors = cb;
 
         // Texto (primer TextMeshProUGUI hijo)
@@ -201,11 +196,11 @@ public class CombatUI : MonoBehaviour
     private void OnDestroy()
     {
         if (_combatManager == null) return;
-        _combatManager.onShowAnalysisPanel  -= OnAnalysisPanelRequested;
-        _combatManager.onActionPerformed    -= ShowMessage;
-        _combatManager.onPlayerTurnStarted  -= OnPlayerTurnStarted;
-        _combatManager.onVictory            -= ShowVictoryScreen;
-        _combatManager.onDefeat             -= ShowDefeatScreen;
+        _combatManager.onShowAnalysisPanel -= OnAnalysisPanelRequested;
+        _combatManager.onActionPerformed -= ShowMessage;
+        _combatManager.onPlayerTurnStarted -= OnPlayerTurnStarted;
+        _combatManager.onVictory -= ShowVictoryScreen;
+        _combatManager.onDefeat -= ShowDefeatScreen;
     }
 
     // ── Public API ─────────────────────────────────────────────────────────────
@@ -218,14 +213,14 @@ public class CombatUI : MonoBehaviour
         if (playerHealthBar != null)
         {
             playerHealthBar.maxValue = player.MaxHealth;
-            playerHealthBar.value    = player.CurrentHealth;
+            playerHealthBar.value = player.CurrentHealth;
         }
         else Debug.LogWarning("[CombatUI] playerHealthBar nulo — ejecuta Kimera/10 para reparar.");
 
         if (playerEnergyBar != null)
         {
             playerEnergyBar.maxValue = player.Data.maxEnergy;
-            playerEnergyBar.value    = player.CurrentEnergy;
+            playerEnergyBar.value = player.CurrentEnergy;
         }
         else Debug.LogWarning("[CombatUI] playerEnergyBar nulo — ejecuta Kimera/10 para reparar.");
 
@@ -276,7 +271,7 @@ public class CombatUI : MonoBehaviour
         TextMeshPro tmp = obj.GetComponentInChildren<TextMeshPro>();
         if (tmp != null)
         {
-            tmp.text  = $"-{amount}";
+            tmp.text = $"-{amount}";
             tmp.color = isEnemy ? Color.red : Color.yellow;
         }
         Destroy(obj, 1.5f);
@@ -293,7 +288,7 @@ public class CombatUI : MonoBehaviour
     {
         int i = IndexOf(enemy);
         if (i >= 0 && i < enemyViews.Length)
-            StartCoroutine(WeaknessFlashRoutine(enemyViews[i].spriteRenderer));
+            enemyViews[i].visual?.PlayHurt();
         ShowMessage("¡Golpeas en el punto débil!");
     }
 
@@ -309,18 +304,69 @@ public class CombatUI : MonoBehaviour
         ShowMessage($"{enemyName}: {action}");
     }
 
+    // ── Animaciones del PLAYER (Controller 'Player3D': Idle 0, Run_N, Attack,
+    //    Defender, Instinto, Hurt, Death, Victoria) ──────────────────────────
+
     public void PlayAttackAnimation(PlayerCombatant player, EnemyCombatant target)
     {
         if (playerAnimator != null) playerAnimator.SetTrigger("Attack");
     }
+
+    public void PlayDefendAnimation()
+    {
+        if (playerAnimator != null) playerAnimator.SetTrigger("Defender");
+    }
+
+    public void PlayPlayerInstinctAnimation()
+    {
+        if (playerAnimator != null) playerAnimator.SetTrigger("Instinto");
+    }
+
+    /// <summary>Llamar cuando el jugador recibe daño, para su reacción de golpe.</summary>
+    public void PlayPlayerHurtReaction()
+    {
+        if (playerAnimator != null) playerAnimator.SetTrigger("Hurt");
+    }
+
+    /// <summary>Llamar al terminar el combate en derrota.</summary>
+    public void PlayPlayerDeathAnimation()
+    {
+        if (playerAnimator != null) playerAnimator.SetTrigger("Death");
+    }
+
+    /// <summary>Llamar al terminar el combate en victoria.</summary>
+    public void PlayPlayerVictoryAnimation()
+    {
+        if (playerAnimator != null) playerAnimator.SetTrigger("Victoria");
+    }
+
+    // ── Animaciones del ENEMIGO (Controller 'EnemyCombate': Idle, Attack1,
+    //    Prepare, Defend, Hurt, Death) ───────────────────────────────────────
 
     public void PlayEnemyAttackAnimation(EnemyCombatant enemy, PlayerCombatant target)
     {
         if (enemyViews == null) return;
         int i = IndexOf(enemy);
         if (i < 0 || i >= enemyViews.Length || enemyViews[i] == null) return;
-        Animator anim = enemyViews[i].animator;
-        if (anim != null) anim.SetTrigger("Attack");
+        enemyViews[i].visual?.PlayAttack();
+    }
+
+    /// <summary>Turno de "Preparando Carga..." — telegraph antes del golpe fuerte (ej. jabalí).</summary>
+    public void PlayEnemyPrepareAnimation(EnemyCombatant enemy)
+    {
+        if (enemyViews == null) return;
+        int i = IndexOf(enemy);
+        if (i < 0 || i >= enemyViews.Length || enemyViews[i] == null) return;
+        enemyViews[i].visual?.PlayPrepare();
+    }
+
+    /// <summary>El enemigo elige defenderse/esquivar su turno.</summary>
+    public void PlayEnemyDefendAnimation(EnemyCombatant enemy)
+    {
+        if (enemyViews == null) return;
+        int i = IndexOf(enemy);
+        if (i < 0 || i >= enemyViews.Length || enemyViews[i] == null) return;
+        enemyViews[i].visual?.PlayDefend();
     }
 
     public void PlayInstinctEffect(EnemyCombatant enemy)
@@ -330,6 +376,43 @@ public class CombatUI : MonoBehaviour
         if (i < 0 || i >= enemyViews.Length || enemyViews[i] == null) return;
         ParticleSystem ps = enemyViews[i].instinctEffect;
         if (ps != null) ps.Play();
+    }
+
+    /// <summary>
+    /// Llamar en CADA golpe que recibe un enemigo (onEnemyTookDamage). Decide sola
+    /// si corresponde Hurt (sigue con vida) o Death (llegó a 0 HP). El visual se
+    /// OCULTA más adelante, en SetupEnemyVisuals(null), cuando se sale del combate —
+    /// así hay tiempo de ver la animación primero.
+    /// </summary>
+    public void NotifyEnemyDamaged(EnemyCombatant enemy)
+    {
+        if (enemy == null || enemyViews == null) return;
+        int i = IndexOf(enemy);
+        if (i < 0 || i >= enemyViews.Length || enemyViews[i] == null) return;
+
+        if (enemy.IsAlive) enemyViews[i].visual?.PlayHurt();
+        else enemyViews[i].visual?.PlayDeath();
+    }
+
+    /// <summary>
+    /// Activa/oculta y configura los visuales 3D de enemigo según la lista real
+    /// del combate actual. Llamar justo después de CombatManager.InitializeCombat().
+    /// Reemplaza al viejo EnemyDisplayManager (sprites en Canvas).
+    /// </summary>
+    public void SetupEnemyVisuals(IReadOnlyList<EnemyCombatant> enemies)
+    {
+        if (enemyViews == null) return;
+
+        for (int i = 0; i < enemyViews.Length; i++)
+        {
+            EnemyCombatVisual3D visual = enemyViews[i]?.visual;
+            if (visual == null) continue;
+
+            if (enemies != null && i < enemies.Count && enemies[i] != null)
+                visual.Setup(enemies[i].Data);
+            else
+                visual.Hide();
+        }
     }
 
     public void SelectEnemy(EnemyCombatant enemy)
@@ -346,16 +429,14 @@ public class CombatUI : MonoBehaviour
         for (int i = 0; i < enemyHUDs.Length; i++)
         {
             if (enemyHUDs[i] == null) continue;
-            Transform root = enemyHUDs[i].nameLabel  != null ? enemyHUDs[i].nameLabel.transform.parent
-                           : enemyHUDs[i].healthBar  != null ? enemyHUDs[i].healthBar.transform.parent
+            Transform root = enemyHUDs[i].nameLabel != null ? enemyHUDs[i].nameLabel.transform.parent
+                           : enemyHUDs[i].healthBar != null ? enemyHUDs[i].healthBar.transform.parent
                            : null;
             if (root != null) root.gameObject.SetActive(i < activeEnemyCount);
         }
 
-        // Refrescar todos los EnemyActionDisplay para que muestren/oculten
-        // según la lista de enemigos del combate actual (normal, reintento o boss).
-        foreach (var display in GetComponentsInChildren<EnemyActionDisplay>(includeInactive: true))
-            display.Refresh();
+        // El refresco de los visuales 3D del enemigo lo hace SetupEnemyVisuals(),
+        // llamado por InSceneCombatController justo después de InitializeCombat().
     }
 
     public void ShowCombatEntrance()
@@ -401,10 +482,10 @@ public class CombatUI : MonoBehaviour
 
         // Ocultar todas las pantallas y paneles
         if (victoryScreen != null) victoryScreen.SetActive(false);
-        if (defeatScreen  != null) defeatScreen.SetActive(false);
+        if (defeatScreen != null) defeatScreen.SetActive(false);
         if (analysisPanel != null) analysisPanel.SetActive(false);
-        if (itemPanel     != null) itemPanel.SetActive(false);
-        if (messageBox    != null) messageBox.SetActive(false);
+        if (itemPanel != null) itemPanel.SetActive(false);
+        if (messageBox != null) messageBox.SetActive(false);
 
         // Acciones desactivadas hasta que empiece el turno del jugador
         EnablePlayerActions(false);
@@ -437,7 +518,7 @@ public class CombatUI : MonoBehaviour
             _runtimeQty.TryGetValue(item, out int qty);
             if (qty <= 0) continue;   // agotado este combate — no mostrar
 
-            GameObject btn  = Instantiate(itemButtonPrefab, itemListContainer);
+            GameObject btn = Instantiate(itemButtonPrefab, itemListContainer);
             TextMeshProUGUI label = btn.GetComponentInChildren<TextMeshProUGUI>();
             if (label != null)
                 label.text = $"{item.itemName}  ×{qty}";
@@ -452,8 +533,8 @@ public class CombatUI : MonoBehaviour
             // Tooltip: aparece al lado del botón al pasar el cursor
             if (!string.IsNullOrEmpty(item.description))
             {
-                EventTrigger trigger   = btn.GetComponent<EventTrigger>() ?? btn.AddComponent<EventTrigger>();
-                RectTransform btnRect  = btn.GetComponent<RectTransform>();
+                EventTrigger trigger = btn.GetComponent<EventTrigger>() ?? btn.AddComponent<EventTrigger>();
+                RectTransform btnRect = btn.GetComponent<RectTransform>();
                 string desc = item.description;
 
                 var enter = new EventTrigger.Entry { eventID = EventTriggerType.PointerEnter };
@@ -494,8 +575,8 @@ public class CombatUI : MonoBehaviour
             if (enemyHUDs[i] == null) continue;
 
             // Busca el contenedor padre del HUD (nameLabel o healthBar son hijos directos)
-            Transform container = enemyHUDs[i].nameLabel  != null ? enemyHUDs[i].nameLabel.transform.parent
-                                : enemyHUDs[i].healthBar  != null ? enemyHUDs[i].healthBar.transform.parent
+            Transform container = enemyHUDs[i].nameLabel != null ? enemyHUDs[i].nameLabel.transform.parent
+                                : enemyHUDs[i].healthBar != null ? enemyHUDs[i].healthBar.transform.parent
                                 : null;
             if (container == null) continue;
 
@@ -559,11 +640,11 @@ public class CombatUI : MonoBehaviour
         lblRt.offsetMin = lblRt.offsetMax = Vector2.zero;
 
         var tmp = lblGO.AddComponent<TextMeshProUGUI>();
-        tmp.text      = "Continuar →";
-        tmp.fontSize  = 16;
+        tmp.text = "Continuar →";
+        tmp.fontSize = 16;
         tmp.fontStyle = FontStyles.Bold;
         tmp.alignment = TextAlignmentOptions.Center;
-        tmp.color     = Color.white;
+        tmp.color = Color.white;
     }
 
     private void WireActionButtons()
@@ -583,6 +664,7 @@ public class CombatUI : MonoBehaviour
             if (_selectedEnemy == null) _selectedEnemy = FirstAliveEnemy();
             if (_selectedEnemy == null) return;
             EnablePlayerActions(false);
+            PlayPlayerInstinctAnimation();
             PlayInstinctEffect(_selectedEnemy);
             _combatManager.PlayerUseInstinct(_selectedEnemy);
         });
@@ -591,13 +673,14 @@ public class CombatUI : MonoBehaviour
         {
             bool open = !itemPanel.activeSelf;
             itemPanel.SetActive(open);
-            if (open)  UpdateItemList();
-            else       ItemTooltip.Hide();
+            if (open) UpdateItemList();
+            else ItemTooltip.Hide();
         });
 
         btnDefend?.onClick.AddListener(() =>
         {
             EnablePlayerActions(false);
+            PlayDefendAnimation();
             _combatManager.PlayerDefend();
             UpdateHUD();
         });
@@ -623,17 +706,6 @@ public class CombatUI : MonoBehaviour
         messageText.text = message;
         yield return new WaitForSeconds(2f);
         messageBox.SetActive(false);
-    }
-
-    private IEnumerator WeaknessFlashRoutine(SpriteRenderer sr)
-    {
-        if (sr == null) yield break;
-        Color original = sr.color;
-        sr.color = FlashWhite;
-        yield return new WaitForSeconds(0.1f);
-        sr.color = FlashRed;
-        yield return new WaitForSeconds(0.3f);
-        sr.color = original;
     }
 
     private IEnumerator FadeInRoutine()

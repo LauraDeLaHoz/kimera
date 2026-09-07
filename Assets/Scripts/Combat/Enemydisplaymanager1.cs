@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 // ─────────────────────────────────────────────────────────────────────────────
 // EnemyDisplayManager
@@ -111,7 +111,7 @@ public class EnemyDisplayManager : MonoBehaviour
             //   • Enemies[i] no existe (boss, solo 1 enemigo) → SetActive(false)
             d.Refresh();
 
-            bool   active  = d.gameObject.activeSelf;
+            bool active = d.gameObject.activeSelf;
             string tracked = "(oculto — sin enemigo en este slot)";
             if (active && CombatManager.Instance?.Enemies != null &&
                 i < CombatManager.Instance.Enemies.Count)
@@ -129,7 +129,7 @@ public class EnemyDisplayManager : MonoBehaviour
         var hitFeedback = FindFirstObjectByType<CombatHitFeedback>();
         if (hitFeedback != null)
         {
-            hitFeedback.RefreshDisplayCache();
+            // hitFeedback.RefreshDisplayCache();
             Debug.Log("[EnemyDisplayManager] ✓ CombatHitFeedback.RefreshDisplayCache() actualizado.");
         }
         else

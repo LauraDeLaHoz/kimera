@@ -2,48 +2,55 @@ using System.Collections;
 using UnityEngine;
 
 // ─────────────────────────────────────────────────────────────────────────────
-// PlayerCombatAnimator
+// PlayerCombatAnimator  (v2 — migración 3D, sin swap de sprites)
 // ─────────────────────────────────────────────────────────────────────────────
-// Coloca este componente en el GO raíz del Player.
+// Coloca este componente en el GO raíz del Player (el mismo objeto en
+// exploración y en combate — YA NO existe un "sprite de combate" separado).
 //
-// CÓMO FUNCIONA:
-//   Exploración  →  "Combat Sprite GO" inactivo    │  "Exploration Sprite GO" activo
-//   Combate      →  "Combat Sprite GO" activo       │  "Exploration Sprite GO" inactivo
+// CÓMO FUNCIONA AHORA:
+//   Exploración → el/los scripts de movimiento controlan el Animator normalmente.
+//   Combate     → se desactivan los scripts de movimiento/dirección Y ADEMÁS
+//                 se fuerza el Animator del propio player a "Idle 0" y se
+//                 mantiene ahí (congelando el parámetro de velocidad) mientras
+//                 dure el combate. El mismo GameObject nunca se desactiva ni
+//                 se reemplaza por otro.
 //
 // CONFIGURACIÓN EN EL INSPECTOR:
-//   1. Combat Sprite GO     → arrastra el hijo "sprite de combate"
-//   2. Exploration Sprite GO → arrastra el GO del sprite de exploración
-//      (si está vacío, solo se gestiona el combat GO)
-//   3. Direction Script     → (opcional) Alpha_2D_Character_In_3D_World del jugador.
-//      Si está vacío el script igualmente busca y desactiva todos los del prefab.
+//   1. Player Animator   → arrastra el Animator real del player (el del
+//                           Animator Controller "Player3D", el que ves en
+//                           Window > Animation > Animator con los estados
+//                           "Idle 0" / "Run_N"). Si lo dejas vacío, el script
+//                           busca uno con GetComponentInChildren.
+//   2. Direction Script  → (opcional) Alpha_2D_Character_In_3D_World del jugador.
+//                          Si está vacío el script busca y desactiva TODOS
+//                          los del prefab.
+//   3. Speed Param Name  → nombre del parámetro float de velocidad en el
+//                          Animator Controller (por defecto "speed").
 //
-// El "sprite de combate" debe estar INACTIVO en la escena antes de darle a Play.
-// El script garantiza ese estado inicial en Start().
+// NOTA DE MIGRACIÓN: los campos combatSpriteGO / explorationSpriteGO del
+// sistema viejo (sprite 2D en Canvas) se eliminaron. Si tu escena todavía
+// tiene esos GOs, ya no hace falta — el player 3D se queda quieto en su
+// sitio, es el mismo objeto en exploración y en combate.
 // ─────────────────────────────────────────────────────────────────────────────
 [DefaultExecutionOrder(-80)]
 public class PlayerCombatAnimator : MonoBehaviour
 {
-    [Header("GameObjects de sprite")]
-    [Tooltip("El hijo 'sprite de combate'.\n" +
-             "Se ACTIVA al entrar en combate y se DESACTIVA al salir.\n" +
-             "Debe estar inactivo en la escena antes de darle a Play.")]
-    [SerializeField] private GameObject combatSpriteGO;
-
-    [Tooltip("(Opcional) GO del sprite de exploración (el sprite normal del jugador).\n" +
-             "Se DESACTIVA al entrar en combate y se ACTIVA al salir.\n" +
-             "Si está vacío solo se gestiona 'Combat Sprite GO'.")]
-    [SerializeField] private GameObject explorationSpriteGO;
+    [Header("Animator del player (3D)")]
+    [Tooltip("Animator real del player (Controller 'Player3D'). " +
+             "Si lo dejas vacío se busca automáticamente en hijos.")]
+    [SerializeField] private Animator playerAnimator;
 
     [Header("Script de dirección")]
     [Tooltip("(Opcional) referencia explícita a Alpha_2D_Character_In_3D_World.\n" +
              "Si está vacío el script busca y desactiva TODOS los del prefab.")]
     [SerializeField] private Alpha_2D_Character_In_3D_World directionScript;
 
-    [Header("Animación del sprite de combate (opcional)")]
-    [Tooltip("Si 'Combat Sprite GO' tiene un Animator, fuerza este estado al activarlo.\n" +
-             "Déjalo vacío si el estado por defecto del Animator Controller ya es correcto\n" +
-             "o si el sprite de combate no tiene Animator (solo SpriteRenderer estático).")]
+    [Header("Animación en combate")]
+    [Tooltip("Nombre del estado de Idle en el Animator Controller del player.")]
     [SerializeField] private string combatIdleState = "Idle 0";
+
+    [Tooltip("Nombre del parámetro float de velocidad usado para Idle/Run.")]
+    [SerializeField] private string speedParamName = "speed";
 
     // ── Cache ────────────────────────────────────────────────────────────────
 
@@ -56,84 +63,60 @@ public class PlayerCombatAnimator : MonoBehaviour
     {
         // Cachear todos los scripts Alpha_2D del prefab (raíz + hijos, activos e inactivos).
         _allDirScripts = GetComponentsInChildren<Alpha_2D_Character_In_3D_World>(true);
+
+        if (playerAnimator == null)
+            playerAnimator = GetComponent<Animator>() ?? GetComponentInChildren<Animator>(true);
     }
 
     private void Start()
     {
-        // Garantizar estado inicial correcto al arrancar el juego:
-        // combat sprite INACTIVO, exploration sprite ACTIVO.
-        ApplyExplorationState();
-
-        if (combatSpriteGO == null)
-            Debug.LogWarning("[PlayerCombatAnimator] 'Combat Sprite GO' no asignado. " +
-                             "Arrastra el hijo 'sprite de combate' al Inspector de PlayerCombatAnimator.");
+        if (playerAnimator == null)
+            Debug.LogWarning("[PlayerCombatAnimator] 'Player Animator' no asignado. " +
+                             "Arrastra el Animator del player (Controller 'Player3D') al Inspector.");
     }
 
     // ── API pública ───────────────────────────────────────────────────────────
 
-    /// <summary>Llamar al entrar en combate. Activa el sprite de combate y oculta el de exploración.</summary>
+    /// <summary>Llamar al entrar en combate. El player se queda quieto en Idle, en el mismo sitio.</summary>
     public void EnterCombat()
     {
         StopAllCoroutines();
-
         _inCombat = true;
 
-        // 1. Desactivar scripts de dirección
+        // 1. Cortar cualquier script que pueda seguir escribiendo el parámetro de velocidad
         SetDirectionScripts(false);
 
-        // 2. Ocultar sprite de exploración
-        if (explorationSpriteGO != null)
-            explorationSpriteGO.SetActive(false);
-
-        // 3. Activar sprite de combate
-        if (combatSpriteGO != null)
-        {
-            combatSpriteGO.SetActive(true);
-
-            Animator anim = combatSpriteGO.GetComponent<Animator>()
-                         ?? combatSpriteGO.GetComponentInChildren<Animator>();
-
-            if (anim != null)
-            {
-                // El Animator utiliza "speed" en minúscula
-                if (HasParam(anim, "speed"))
-                    anim.SetFloat("speed", 0f);
-
-                // Forzar Idle
-                if (!string.IsNullOrEmpty(combatIdleState))
-                {
-                    anim.Play(combatIdleState, -1, 0f);
-                    anim.Update(0f);
-                }
-
-                Debug.Log(
-                    $"[PlayerCombatAnimator] Combate → Idle en {anim.gameObject.name}"
-                );
-            }
-        }
-
-       
-
+        // 2. Forzar Idle en el Animator real del player (ya no en un sprite aparte)
+        ForceIdle();
     }
 
-    /// <summary>Llamar al salir del combate. Restaura el sprite de exploración y oculta el de combate.</summary>
+    /// <summary>Llamar al salir del combate. Reactiva el control normal del movimiento.</summary>
     public void ExitCombat()
     {
         StopAllCoroutines();
-
         _inCombat = false;
 
-        ApplyExplorationState();
+        // No forzamos ningún estado al salir: dejamos que el script de
+        // movimiento retome el control del Animator con el input real.
+        SetDirectionScripts(true);
     }
 
     // ── Privado ───────────────────────────────────────────────────────────────
 
-    /// <summary>Aplica el estado de exploración: combat GO inactivo, exploration GO activo, dirección activa.</summary>
-    private void ApplyExplorationState()
+    private void ForceIdle()
     {
-        if (combatSpriteGO      != null) combatSpriteGO.SetActive(false);
-        if (explorationSpriteGO != null) explorationSpriteGO.SetActive(true);
-        SetDirectionScripts(true);
+        if (playerAnimator == null) return;
+
+        if (HasParam(playerAnimator, speedParamName))
+            playerAnimator.SetFloat(speedParamName, 0f);
+
+        if (!string.IsNullOrEmpty(combatIdleState))
+        {
+            playerAnimator.Play(combatIdleState, -1, 0f);
+            playerAnimator.Update(0f);
+        }
+
+        Debug.Log($"[PlayerCombatAnimator] Combate → Idle forzado en '{playerAnimator.gameObject.name}'");
     }
 
     /// <summary>Activa o desactiva todos los Alpha_2D_Character_In_3D_World encontrados en el prefab.</summary>
@@ -147,37 +130,15 @@ public class PlayerCombatAnimator : MonoBehaviour
         if (directionScript != null) directionScript.enabled = active;
     }
 
-    /// <summary>Espera un frame y fuerza un estado del Animator directamente por nombre.</summary>
-    private IEnumerator ForcePlayState(Animator anim, string stateName)
-    {
-        // El Animator necesita un frame para inicializarse después de que su GO se active.
-        yield return null;
-
-        if (anim == null || !anim.isActiveAndEnabled) yield break;
-
-        anim.Play(stateName, -1, 0f);
-        anim.Update(0f);
-        Debug.Log($"[PlayerCombatAnimator] ✓ Play('{stateName}') en '{anim.gameObject.name}'");
-    }
-
+    // Mientras dure el combate, re-congelamos el parámetro cada frame por si
+    // algún otro script (físicas, root motion, etc.) lo vuelve a mover.
     private void LateUpdate()
     {
-        if (!_inCombat)
-            return;
+        if (!_inCombat || playerAnimator == null) return;
 
-        if (combatSpriteGO == null)
-            return;
-
-        Animator anim = combatSpriteGO.GetComponent<Animator>()
-                     ?? combatSpriteGO.GetComponentInChildren<Animator>();
-
-        if (anim == null)
-            return;
-
-        if (HasParam(anim, "speed"))
-            anim.SetFloat("speed", 0f);
+        if (HasParam(playerAnimator, speedParamName))
+            playerAnimator.SetFloat(speedParamName, 0f);
     }
-
 
     private bool HasParam(Animator anim, string name)
     {
@@ -190,3 +151,4 @@ public class PlayerCombatAnimator : MonoBehaviour
         return false;
     }
 }
+

@@ -28,6 +28,10 @@ public class CombatManager : MonoBehaviour
     // Feedback de daño — suscritos en CombatHitFeedback
     public event Action<EnemyCombatant> onEnemyTookDamage;
     public event Action<int>            onPlayerTookDamage;   // int = daño recibido
+    ///
+
+    // agregue esta linea
+    public event Action<EnemyCombatant, EnemyActionResult> onEnemyActionDecided;
 
     private void Awake()
     {
@@ -202,6 +206,8 @@ public class CombatManager : MonoBehaviour
 
         enemy.OnTurnStart();
         EnemyActionResult action = enemy.DecideAction(_player);
+        //agregue la linea 207
+        onEnemyActionDecided?.Invoke(enemy, action);
 
         State = CombatState.Animating;
         onActionPerformed?.Invoke($"{enemy.Data.enemyName}: {action.actionName}");

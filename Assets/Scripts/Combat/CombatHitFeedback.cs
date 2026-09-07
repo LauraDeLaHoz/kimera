@@ -52,7 +52,7 @@ public class CombatHitFeedback : MonoBehaviour
     private static readonly Color HitRed = new Color(1f, 0.08f, 0.08f);
 
     private Coroutine            _instinctRoutine;
-    private EnemyActionDisplay[] _displays;
+    //private EnemyActionDisplay[] _displays;
 
     // ── Lifecycle ───────────────────────────────────────────────────────────
 
@@ -60,20 +60,20 @@ public class CombatHitFeedback : MonoBehaviour
     {
         while (CombatManager.Instance == null) yield return null;
 
-        CombatManager.Instance.onEnemyTookDamage   += OnEnemyDamaged;
+        //CombatManager.Instance.onEnemyTookDamage   += OnEnemyDamaged;
         CombatManager.Instance.onPlayerTookDamage  += OnPlayerDamaged;
         CombatManager.Instance.onShowAnalysisPanel += OnInstinct;
 
         // Cachear todos los EnemyActionDisplay de la escena.
         // Se crean en el Setup (Menu 5) y nunca se destruyen en runtime,
         // así que basta con cachearlos una vez.
-        RefreshDisplayCache();
+        //RefreshDisplayCache();
     }
 
     private void OnDestroy()
     {
         if (CombatManager.Instance == null) return;
-        CombatManager.Instance.onEnemyTookDamage   -= OnEnemyDamaged;
+        //CombatManager.Instance.onEnemyTookDamage   -= OnEnemyDamaged;
         CombatManager.Instance.onPlayerTookDamage  -= OnPlayerDamaged;
         CombatManager.Instance.onShowAnalysisPanel -= OnInstinct;
     }
@@ -82,7 +82,12 @@ public class CombatHitFeedback : MonoBehaviour
     /// Re-escanea todos los EnemyActionDisplay de la escena (activos e inactivos).
     /// No es necesario llamarlo entre combates — los displays son permanentes.
     /// </summary>
-    public void RefreshDisplayCache()
+    /// 
+
+
+
+
+    /*public void RefreshDisplayCache()
     {
         _displays = FindObjectsByType<EnemyActionDisplay>(
             FindObjectsInactive.Include, FindObjectsSortMode.None);
@@ -98,11 +103,14 @@ public class CombatHitFeedback : MonoBehaviour
                       $"enemyIndex={d.EnemyIndex}  {imgInfo}");
         }
         Debug.Log($"[CombatHitFeedback] ────────────────────────────────────────");
-    }
+    }*/
+
+
+
 
     // ── Handlers ─────────────────────────────────────────────────────────────
 
-    private void OnEnemyDamaged(EnemyCombatant enemy)
+    /*private void OnEnemyDamaged(EnemyCombatant enemy)
     {
         // ── Paso 1: encontrar el índice del enemigo en la lista activa ─────────
         // IReadOnlyList<T> no expone IndexOf, así que buscamos manualmente.
@@ -144,10 +152,12 @@ public class CombatHitFeedback : MonoBehaviour
         // FlashDamage() gestiona color + shake internamente.
         // Este script NO toca ningún Image ni RectTransform del display.
         display.FlashDamage();
-    }
+    }*/
 
     /// <summary>Búsqueda de respaldo: recorre el caché y usa TracksEnemy().</summary>
-    private EnemyActionDisplay FindActiveDisplayFor(EnemyCombatant enemy)
+    /// 
+
+    /*private EnemyActionDisplay FindActiveDisplayFor(EnemyCombatant enemy)
     {
         if (_displays == null) return null;
         foreach (var d in _displays)
@@ -157,6 +167,7 @@ public class CombatHitFeedback : MonoBehaviour
         }
         return null;
     }
+    */
 
     private void OnPlayerDamaged(int damage)
     {
