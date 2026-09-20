@@ -76,13 +76,13 @@ public class CombatUI : MonoBehaviour
 
     [Header("Estilos de botones (edita aquí → se aplica en Play)")]
     [Tooltip("Estilo del botón ATACAR")]
-    public ActionButtonStyle attackStyle = new ActionButtonStyle { label = "ATACAR", backgroundColor = new Color(0.65f, 0.13f, 0.13f) };
+    public ActionButtonStyle attackStyle = new ActionButtonStyle { label = "ATACAR", backgroundColor = new Color(0.82f, 0.18f, 0.13f) };
     [Tooltip("Estilo del botón INSTINTO")]
-    public ActionButtonStyle instinctStyle = new ActionButtonStyle { label = "INSTINTO", backgroundColor = new Color(0.13f, 0.38f, 0.65f) };
+    public ActionButtonStyle instinctStyle = new ActionButtonStyle { label = "INSTINTO", backgroundColor = new Color(0.45f, 0.13f, 0.68f) };
     [Tooltip("Estilo del botón ÍTEM")]
-    public ActionButtonStyle itemStyle = new ActionButtonStyle { label = "ÍTEM", backgroundColor = new Color(0.13f, 0.52f, 0.22f) };
+    public ActionButtonStyle itemStyle = new ActionButtonStyle { label = "ÍTEM", backgroundColor = new Color(0.92f, 0.72f, 0.13f) };
     [Tooltip("Estilo del botón DEFENDER")]
-    public ActionButtonStyle defendStyle = new ActionButtonStyle { label = "DEFENDER", backgroundColor = new Color(0.38f, 0.30f, 0.52f) };
+    public ActionButtonStyle defendStyle = new ActionButtonStyle { label = "DEFENDER", backgroundColor = new Color(0.11f, 0.62f, 0.52f) };
 
     [Header("Sprite retrato del jugador")]
     [Tooltip("Sprite que se muestra en el retrato de Mike en el HUD")]
@@ -247,9 +247,53 @@ public class CombatUI : MonoBehaviour
         }
     }
 
+    [Header("Fade del menú de acciones")]
+    [Tooltip("Duración del fade in al abrir el menú de acciones (0 = instantáneo).")]
+    [SerializeField] private float actionPanelFadeDuration = 0.2f;
+
+    private Coroutine _actionPanelFadeRoutine;
+
     public void EnablePlayerActions(bool enable)
     {
-        actionPanel.SetActive(enable);
+        if (_actionPanelFadeRoutine != null)
+        {
+            StopCoroutine(_actionPanelFadeRoutine);
+            _actionPanelFadeRoutine = null;
+        }
+
+        if (enable)
+        {
+            actionPanel.SetActive(true);
+            _actionPanelFadeRoutine = StartCoroutine(FadeActionPanel(0f, 1f, actionPanelFadeDuration));
+        }
+        else
+        {
+            actionPanel.SetActive(false);
+        }
+    }
+
+    /// <summary>Fade in/out simple del panel de acciones completo, vía CanvasGroup.</summary>
+    private IEnumerator FadeActionPanel(float from, float to, float duration)
+    {
+        CanvasGroup cg = actionPanel.GetComponent<CanvasGroup>();
+        if (cg == null) cg = actionPanel.AddComponent<CanvasGroup>();
+
+        cg.alpha = from;
+
+        if (duration <= 0f)
+        {
+            cg.alpha = to;
+            yield break;
+        }
+
+        float time = 0f;
+        while (time < duration)
+        {
+            time += Time.deltaTime;
+            cg.alpha = Mathf.Lerp(from, to, Mathf.Clamp01(time / duration));
+            yield return null;
+        }
+        cg.alpha = to;
     }
 
     public void ShowAnalysisPanel(string main, string hint)

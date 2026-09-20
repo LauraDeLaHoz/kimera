@@ -27,7 +27,7 @@ public class CombatManager : MonoBehaviour
 
     // Feedback de daño — suscritos en CombatHitFeedback
     public event Action<EnemyCombatant> onEnemyTookDamage;
-    public event Action<int>            onPlayerTookDamage;   // int = daño recibido
+    public event Action<int> onPlayerTookDamage;   // int = daño recibido
     ///
 
     // agregue esta linea
@@ -43,7 +43,7 @@ public class CombatManager : MonoBehaviour
 
     public void InitializeCombat(CharacterStats playerStats, List<EnemyData> enemyDataList)
     {
-        _player  = new PlayerCombatant(playerStats);
+        _player = new PlayerCombatant(playerStats);
         _enemies = enemyDataList.Select(d => new EnemyCombatant(d)).ToList();
         BuildTurnOrder();
         StartNextTurn();
@@ -128,12 +128,18 @@ public class CombatManager : MonoBehaviour
     {
         if (State != CombatState.PlayerTurn) return;
 
-        MutationData mutation = _player.Data.activeMutation;
+        // Prioridad: la mutación que el jugador obtuvo en runtime explorando
+        // (ej. "Cola de Iguana" del carnicero). Si todavía no consiguió
+        // ninguna, cae de vuelta a la del asset (útil para probar combate
+        // suelto sin pasar por todo el recorrido de exploración).
+        MutationData mutation = PlayerMutationState.Current != null
+            ? PlayerMutationState.Current
+            : _player.Data.activeMutation;
         if (mutation == null) return;
         if (!_player.SpendEnergy(mutation.energyCost)) return;
 
         target.WeaknessExposed = true;
-        target.WeaknessTimer   = mutation.weaknessWindowTurns;
+        target.WeaknessTimer = mutation.weaknessWindowTurns;
 
         int enemyIndex = _enemies.IndexOf(target);
         string text = (enemyIndex >= 0 && enemyIndex < mutation.analysisTexts.Length)

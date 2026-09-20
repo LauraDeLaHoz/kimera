@@ -2,32 +2,53 @@ using UnityEngine;
 using UnityEngine.Events;
 
 /// <summary>
-/// Para beats narrativos que NO son una quest formal: el carnicero que te dice
-/// "descubriste algo interesante", el inicio del motín, etc. Cosas que solo
-/// deben pasar UNA vez en toda la partida y opcionalmente encadenan la
-/// siguiente parte de la escena (UnityEvent).
+/// Para beats narrativos que NO son una quest formal por sí mismos: el
+/// carnicero que da su ítem, la tienda, el monumento, el motín. Cosas que
+/// solo deben pasar UNA vez en toda la partida y opcionalmente:
+///   - entregan un ItemData al inventario del jugador
+///   - entregan/activan una MutationData (el poder de Instinto)
+///   - completan una quest formal de QuestManager (ej. el motín completa
+///     "Explora la ciudad")
+///   - encadenan lo que sigue (activar el siguiente punto del recorrido,
+///     spawnear algo, etc.) vía UnityEvent
 ///
 /// No lo actives directamente desde OnTriggerEnter si depende de una acción
-/// del jugador (como "hablar con el vendedor"): llama a Fire() desde el punto
+/// del jugador (como "hablar con el vendedor"): llamá a Fire() desde el punto
 /// exacto donde ocurre esa acción (por ejemplo, desde un external function del
-/// diálogo, ver DialogEventsBinder). Así evitas el problema de "doble trigger"
-/// que mencionabas: un solo punto de entrada, un solo flag.
+/// diálogo, ver DialogEventsBinder). Así evitás el problema de "doble trigger":
+/// un solo punto de entrada, un solo flag.
 /// </summary>
 public class OneShotTrigger : MonoBehaviour
 {
-    [Tooltip("ID único en todo el proyecto. Ej: 'carniceria_hablo_vendedor', 'motin_inicio'.")]
+    [Tooltip("ID único en todo el proyecto. Ej: 'carniceria_completada', 'motin_completado'.")]
     public string flagId;
 
-    [Header("Logro (opcional)")]
-    [Tooltip("Si se llena, se muestra como toast de logro al dispararse por primera vez.")]
+    [Header("Logro / notificación de item (opcional)")]
+    [Tooltip("Si se llena, se muestra como toast al dispararse por primera vez. " +
+             "Sirve tanto para logros de historia como para 'Obtuviste tu primer ítem!'.")]
     [TextArea]
     public string achievementText;
 
+    [Header("Recompensa (opcional)")]
+    [Tooltip("Si se asigna, se agrega automáticamente a PlayerInventory al dispararse por primera vez.")]
+    public ItemData itemReward;
+
+    [Tooltip("Si se asigna, se vuelve la mutación/Instinto activa del jugador " +
+             "(PlayerMutationState) al dispararse por primera vez. Ej: el " +
+             "carnicero entregando 'Cola de Iguana'.")]
+    public MutationData mutationReward;
+
+    [Header("Completar quest (opcional)")]
+    [Tooltip("Si se asigna, se llama a QuestManager.CompleteQuestManually con esta quest " +
+             "al dispararse por primera vez. Ej: el punto del motín completa 'Explora la ciudad'.")]
+    public QuestData completesQuest;
+
     [Header("Encadenado")]
-    [Tooltip("Se invoca SOLO la primera vez. Aquí conectas: dar el item, activar el trigger del motín, spawnear a la guía, etc.")]
+    [Tooltip("Se invoca SOLO la primera vez. Acá conectás: activar el siguiente " +
+             "punto del recorrido, spawnear algo, etc.")]
     public UnityEvent onFirstTrigger;
 
-    /// <summary>Llama esto desde donde ocurra el evento real (fin de diálogo, botón, etc.).</summary>
+    /// <summary>Llamá esto desde donde ocurra el evento real (fin de diálogo, botón, etc.).</summary>
     public bool Fire()
     {
         if (StoryFlags.Instance == null)
@@ -43,6 +64,15 @@ public class OneShotTrigger : MonoBehaviour
         {
             NotificationManager.Instance.ShowAchievement(achievementText);
         }
+
+        if (itemReward != null)
+            PlayerInventory.AddItem(itemReward);
+
+        if (mutationReward != null)
+            PlayerMutationState.SetMutation(mutationReward);
+
+        if (completesQuest != null && QuestManager.Instance != null)
+            QuestManager.Instance.CompleteQuestManually(completesQuest);
 
         onFirstTrigger?.Invoke();
         return true;

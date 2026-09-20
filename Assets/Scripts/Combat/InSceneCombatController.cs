@@ -391,7 +391,13 @@ public class InSceneCombatController : MonoBehaviour
         if (combatUI != null)
         {
             combatUI.InitEnemyHUDs(enemies.Length);
-            combatUI.SetInventory(new List<ItemData>(startingItems));
+
+            // Items fijos de diseño (si los usás para pruebas) + los que el
+            // jugador fue recolectando en el recorrido de exploración.
+            List<ItemData> combatItems = new List<ItemData>(startingItems);
+            combatItems.AddRange(PlayerInventory.Items);
+            combatUI.SetInventory(combatItems);
+
             combatUI.UpdateHUD();
         }
 
