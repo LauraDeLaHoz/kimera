@@ -1,0 +1,443 @@
+fileFormatVersion: 2
+guid: cced72452117fee4a9c9785967d74f1c
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: ui_KIMERA_0
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 3540
+        width: 289
+        height: 92
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 288fe71670fbc0c469b044e9949685dd
+      internalID: 204641770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_KIMERA_1
+      rect:
+        serializedVersion: 2
+        x: 547
+        y: 3544
+        width: 322
+        height: 85
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 99d73aeb47368594ca2d2e89f58e94dc
+      internalID: 1924434882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_KIMERA_2
+      rect:
+        serializedVersion: 2
+        x: 984
+        y: 3544
+        width: 463
+        height: 72
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 275978d4f425653488c9e1d5fee22c5e
+      internalID: 97194586
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_KIMERA_3
+      rect:
+        serializedVersion: 2
+        x: 563
+        y: 3399
+        width: 339
+        height: 82
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b8f47b88f279cf49a3cf872779a43a5
+      internalID: -1482088906
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_KIMERA_4
+      rect:
+        serializedVersion: 2
+        x: 557
+        y: 3264
+        width: 269
+        height: 86
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 49d9bf0621642e044a8d035dfec1ad9c
+      internalID: 655224093
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_KIMERA_5
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 3386
+        width: 418
+        height: 119
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9d8cb72e9b995c34d8919b4d11f88a15
+      internalID: -842862564
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_KIMERA_6
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 3215
+        width: 256
+        height: 112
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a1f15ea7ae0907a4b8fe4728b75d2ede
+      internalID: 1141365580
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_KIMERA_42
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 2920
+        width: 713
+        height: 262
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f0ec8cc0b5890a74880c9091288076aa
+      internalID: 1805977202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_KIMERA_43
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 2451
+        width: 1345
+        height: 400
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5968c88780411e54cac87bb06f068091
+      internalID: 1756140835
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_KIMERA_44
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 1989
+        width: 1381
+        height: 404
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e45052df017483743b595c6d79999af6
+      internalID: -1404115346
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_KIMERA_45
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 1231
+        width: 221
+        height: 626
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 55d4c037c8267b946a4d8561b2d4a63a
+      internalID: 302951864
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_KIMERA_47
+      rect:
+        serializedVersion: 2
+        x: 387
+        y: 842
+        width: 718
+        height: 1026
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e6626676169a4a542a8cdacfe43f51cc
+      internalID: -2090673829
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: d717bebb92d10704aa52ce939380906d
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      ui_KIMERA_0: 204641770
+      ui_KIMERA_1: 1924434882
+      ui_KIMERA_10: -559119183
+      ui_KIMERA_11: -1085270865
+      ui_KIMERA_12: 1388217403
+      ui_KIMERA_13: 1837627240
+      ui_KIMERA_14: 1604535465
+      ui_KIMERA_15: -1780663543
+      ui_KIMERA_16: -967922811
+      ui_KIMERA_17: -2139803406
+      ui_KIMERA_18: -102216891
+      ui_KIMERA_19: 415664182
+      ui_KIMERA_2: 97194586
+      ui_KIMERA_20: -1046434458
+      ui_KIMERA_21: 1339382606
+      ui_KIMERA_22: 1293779264
+      ui_KIMERA_23: 1274999222
+      ui_KIMERA_24: -956273901
+      ui_KIMERA_25: 1591773560
+      ui_KIMERA_26: -823758567
+      ui_KIMERA_27: -997745995
+      ui_KIMERA_28: -1451545861
+      ui_KIMERA_29: 1014988530
+      ui_KIMERA_3: -1482088906
+      ui_KIMERA_30: 650699006
+      ui_KIMERA_31: 1977303217
+      ui_KIMERA_32: 931879666
+      ui_KIMERA_33: 1642070513
+      ui_KIMERA_34: -1822764695
+      ui_KIMERA_35: -619238271
+      ui_KIMERA_36: -797553628
+      ui_KIMERA_37: -1031472811
+      ui_KIMERA_38: 927470750
+      ui_KIMERA_39: -662458431
+      ui_KIMERA_4: 655224093
+      ui_KIMERA_40: 309620402
+      ui_KIMERA_41: 1156542002
+      ui_KIMERA_42: 1805977202
+      ui_KIMERA_43: 1756140835
+      ui_KIMERA_44: -1404115346
+      ui_KIMERA_45: 302951864
+      ui_KIMERA_46: -419018928
+      ui_KIMERA_47: -2090673829
+      ui_KIMERA_48: 580814520
+      ui_KIMERA_5: -842862564
+      ui_KIMERA_6: 1141365580
+      ui_KIMERA_7: 1715823946
+      ui_KIMERA_8: -1540366395
+      ui_KIMERA_9: -1269708399
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -17,7 +17,6 @@ public class thirdPersonMovement : MonoBehaviour
 
     [Header("Gravity")]
     public float gravity = -20f;
-    public float jumpHeight = 1.2f;
 
     [Header("Animation")]
     public float animationSmoothTime = 0.1f;
@@ -88,9 +87,6 @@ public class thirdPersonMovement : MonoBehaviour
         {
             if (_verticalVelocity < 0)
                 _verticalVelocity = -2f;
-
-            if (Keyboard.current != null && Keyboard.current.spaceKey.wasPressedThisFrame)
-                _verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
         else
         {

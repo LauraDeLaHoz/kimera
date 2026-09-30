@@ -18,12 +18,14 @@ public class NPCInteract : MonoBehaviour
     public Camera dialogueCamera;
     public Transform dialogueCameraPoint;
 
-    [Header("Cinemática post-diálogo (opcional)")]
-    [Tooltip("Para puntos tipo 'diálogo - cinemática' (ej. el motín): si se " +
-             "asigna, se reproduce automáticamente al llamar a EndDialogue " +
-             "desde el grafo, ANTES de devolver el control al jugador. " +
-             "Dejalo vacío para el comportamiento normal (sin cinemática).")]
+    [Header("Cinemática ANTES del diálogo (opcional)")]
+    public PlayableDirector preDialogueCinematic;
+
+    [Header("Cinemática DESPUÉS del diálogo (opcional)")]
     public PlayableDirector postDialogueCinematic;
+
+    [Tooltip("Cámara que usan las cinemáticas de arriba (ej. _CinematicCamera).")]
+    public Camera cinematicCamera;
 
     private bool playerInside;
     private bool inDialogue;
@@ -33,26 +35,41 @@ public class NPCInteract : MonoBehaviour
     public Transform questSpawnPoint;
 
     [Header("Variable NBDS (opcional) — estado de QUEST formal")]
-    [Tooltip("Nombre de la variable int en el Variable Config del diálogo. " +
-             "Se setea automáticamente con el estado de questToStart (0=NotStarted, 1=InProgress, 2=Completed) " +
-             "antes de abrir el diálogo, para poder ramificar con un Variable Condition Node " +
-             "y así NO repetir la conversación de introducción si ya hablaste antes.")]
     public string questStateVariableName;
 
-    [Header("Variable NBDS (opcional) — STORY FLAG suelto")]
-    [Tooltip("Para NPCs cuyo 'ya pasó o no' NO es una quest formal (ej. el carnicero " +
-             "que entrega un ítem una sola vez). Poné acá el mismo flagId que usa el " +
-             "OneShotTrigger de ese evento (ej. 'carniceria_completada').")]
+    [Header("Variable NBDS (opcional) — STORY FLAG propio")]
+    [Tooltip("El flag que marca si YA completaste ESTE punto (ej. 'tienda_completada'). " +
+             "También se usa para saber cuándo apagar el ícono de alerta sobre este NPC.")]
     public string storyFlagId;
-
-    [Tooltip("Nombre de la variable int en el Variable Config del diálogo para este " +
-             "story flag: 0 = todavía no pasó, 1 = ya pasó. Ramificá con un Variable " +
-             "Condition Node igual que con questStateVariableName.")]
+    [Tooltip("Variable int en el grafo: 0 = primera vez, 1 = ya lo hiciste antes.")]
     public string storyFlagVariableName;
+
+    [Header("Requisito previo (bloquea la interacción, NO toca el diálogo)")]
+    [Tooltip("El flag del PUNTO ANTERIOR de la cadena (ej. si esto es la Estatua, " +
+             "poné 'tienda_completada'). Mientras este flag no esté puesto, presionar " +
+             "E acá NO HACE NADA — ni siquiera abre el diálogo. Dejalo vacío si este " +
+             "punto no depende de ningún otro (ej. la Tienda, el primero de la cadena).")]
+    public string prerequisiteFlagId;
+
+    /// <summary>Público para que RouteAlertIcon pueda leerlo sin duplicar el flag id.</summary>
+    public bool PrerequisiteMet =>
+        string.IsNullOrEmpty(prerequisiteFlagId) ||
+        (StoryFlags.Instance != null && StoryFlags.Instance.IsSet(prerequisiteFlagId));
+
+    /// <summary>Público para que RouteAlertIcon sepa si este punto ya se completó.</summary>
+    public bool AlreadyCompleted =>
+        !string.IsNullOrEmpty(storyFlagId) &&
+        StoryFlags.Instance != null && StoryFlags.Instance.IsSet(storyFlagId);
 
     private void Update()
     {
         if (!playerInside || inDialogue)
+            return;
+
+        // Bloqueo puro: si el punto anterior de la cadena no está cumplido,
+        // presionar E acá no hace absolutamente nada — sin diálogo, sin
+        // mensaje, sin tocar el grafo para nada.
+        if (!PrerequisiteMet)
             return;
 
         if (Keyboard.current != null && Keyboard.current.eKey.wasPressedThisFrame)
@@ -66,29 +83,69 @@ public class NPCInteract : MonoBehaviour
         inDialogue = true;
         playerMovement.enabled = false;
 
-        DialogEventsBinder.Instance.SetCurrentNPC(this);
+        if (preDialogueCinematic != null)
+        {
+            StartCoroutine(PlayPreDialogueCinematicThenBegin());
+        }
+        else
+        {
+            BeginActualDialogue();
+        }
+    }
 
-        SyncQuestStateVariable();
-        SyncStoryFlagVariable();
+    private IEnumerator PlayPreDialogueCinematicThenBegin()
+    {
+        if (cinematicCamera != null)
+            cinematicCamera.gameObject.SetActive(true);
+
+        if (gameplayCamera != null)
+            gameplayCamera.gameObject.SetActive(false);
+
+        bool finished = false;
+        void OnStopped(PlayableDirector d) => finished = true;
+
+        preDialogueCinematic.extrapolationMode = DirectorWrapMode.None;
+        preDialogueCinematic.stopped += OnStopped;
+        preDialogueCinematic.Play();
+
+        yield return new WaitUntil(() => finished);
+
+        preDialogueCinematic.stopped -= OnStopped;
+        preDialogueCinematic.enabled = false;
+
+        if (cinematicCamera != null)
+            cinematicCamera.gameObject.SetActive(false);
+
+        BeginActualDialogue();
+    }
+
+    private void BeginActualDialogue()
+    {
+        DialogEventsBinder.Instance.SetCurrentNPC(this);
 
         dialogueCamera.transform.position = dialogueCameraPoint.position;
         dialogueCamera.transform.rotation = dialogueCameraPoint.rotation;
 
-        gameplayCamera.gameObject.SetActive(false);
+        if (gameplayCamera != null)
+            gameplayCamera.gameObject.SetActive(false);
+
         dialogueCamera.gameObject.SetActive(true);
 
-        dialogBehaviour.StartDialog(dialogGraph, null, null);
+        // Las variables se setean DENTRO del callback 'onVariablesHandlerInitialized' —
+        // nunca antes de StartDialog (ver explicación completa en versiones anteriores
+        // de este archivo). Ya NO sincronizamos ningún flag de "requisito previo" acá
+        // — eso ahora se resuelve ANTES de llegar a este método, en Update().
+        dialogBehaviour.StartDialog(
+            dialogGraph,
+            onVariablesHandlerInitialized: _ =>
+            {
+                SyncQuestStateVariable();
+                SyncStoryFlagVariable();
+            },
+            onDialogFinished: null
+        );
     }
 
-    /// <summary>
-    /// Deja en la variable NBDS el estado actual de la quest asociada a este
-    /// NPC. En el grafo, poné un Variable Condition Node justo al inicio que
-    /// compare esta variable:
-    ///   0 (NotStarted)  -> rama de "primer encuentro" (termina llamando a StartQuest)
-    ///   1 (InProgress)  -> rama de "recordatorio" (solo repite el objetivo actual)
-    ///   2 (Completed)   -> rama de diálogo post-misión
-    /// Así hablarle de nuevo a la guía NUNCA vuelve a disparar StartQuest.
-    /// </summary>
     private void SyncQuestStateVariable()
     {
         if (string.IsNullOrEmpty(questStateVariableName) || questToStart == null)
@@ -98,14 +155,6 @@ public class NPCInteract : MonoBehaviour
         dialogBehaviour.SetVariableValue(questStateVariableName, state);
     }
 
-    /// <summary>
-    /// Igual que SyncQuestStateVariable, pero para eventos narrativos sueltos
-    /// que viven en StoryFlags (OneShotTrigger) en vez de en QuestManager.
-    /// Ej: el carnicero, que entrega un ítem una sola vez y no es una quest
-    /// formal con panel de objetivo.
-    ///   0 = el flag todavía NO está puesto -> rama de "primera vez" (entrega el ítem)
-    ///   1 = el flag YA está puesto -> rama de "ya te di el ítem, no me queda más"
-    /// </summary>
     private void SyncStoryFlagVariable()
     {
         if (string.IsNullOrEmpty(storyFlagVariableName) || string.IsNullOrEmpty(storyFlagId))
@@ -115,31 +164,41 @@ public class NPCInteract : MonoBehaviour
         dialogBehaviour.SetVariableValue(storyFlagVariableName, alreadySet ? 1 : 0);
     }
 
-    /// <summary>
-    /// Llamar desde el external function "EndDialogue" del grafo (el de
-    /// siempre). Si este NPC tiene una cinemática post-diálogo asignada
-    /// (ej. el motín), la reproduce primero y recién al terminar devuelve el
-    /// control — todo transparente para el grafo, no hace falta un external
-    /// function distinto para los puntos que la usan.
-    /// </summary>
     public void EndDialogueExternally()
     {
         if (postDialogueCinematic != null)
         {
-            StartCoroutine(PlayCinematicThenEndDialogue());
+            StartCoroutine(PlayPostCinematicThenEndDialogue());
             return;
         }
 
         FinishDialogue();
     }
 
-    private IEnumerator PlayCinematicThenEndDialogue()
+    private IEnumerator PlayPostCinematicThenEndDialogue()
     {
-        gameplayCamera.gameObject.SetActive(false);
+        if (gameplayCamera != null)
+            gameplayCamera.gameObject.SetActive(false);
+
         dialogueCamera.gameObject.SetActive(false);
 
+        if (cinematicCamera != null)
+            cinematicCamera.gameObject.SetActive(true);
+
+        bool finished = false;
+        void OnStopped(PlayableDirector d) => finished = true;
+
+        postDialogueCinematic.extrapolationMode = DirectorWrapMode.None;
+        postDialogueCinematic.stopped += OnStopped;
         postDialogueCinematic.Play();
-        yield return new WaitForSeconds((float)postDialogueCinematic.duration);
+
+        yield return new WaitUntil(() => finished);
+
+        postDialogueCinematic.stopped -= OnStopped;
+        postDialogueCinematic.enabled = false;
+
+        if (cinematicCamera != null)
+            cinematicCamera.gameObject.SetActive(false);
 
         FinishDialogue();
     }
@@ -149,7 +208,9 @@ public class NPCInteract : MonoBehaviour
         inDialogue = false;
         playerMovement.enabled = true;
 
-        gameplayCamera.gameObject.SetActive(true);
+        if (gameplayCamera != null)
+            gameplayCamera.gameObject.SetActive(true);
+
         dialogueCamera.gameObject.SetActive(false);
     }
 
@@ -165,11 +226,6 @@ public class NPCInteract : MonoBehaviour
             playerInside = false;
     }
 
-    /// <summary>
-    /// Se llama desde un external function del nodo de diálogo (solo en la
-    /// rama de "primer encuentro"). QuestManager.StartQuest ya es idempotente,
-    /// pero mantener la llamada solo en esa rama evita incluso intentarlo.
-    /// </summary>
     public void StartQuest()
     {
         bool started = QuestManager.Instance.StartQuest(questToStart);
