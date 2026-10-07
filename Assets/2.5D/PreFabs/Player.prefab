@@ -300,7 +300,6 @@ MonoBehaviour:
   rotationSmoothTime: 0.1
   speedChangeRate: 10
   gravity: 10
-  jumpHeight: 1.2
   animationSmoothTime: 0.1
 --- !u!114 &2415694177443615984
 MonoBehaviour:
