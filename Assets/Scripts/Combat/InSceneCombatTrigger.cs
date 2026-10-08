@@ -36,6 +36,13 @@ public class InSceneCombatTrigger : MonoBehaviour
              "Si es false, el combate puede repetirse cada vez que el jugador entre.")]
     [SerializeField] private bool oneTimeOnly = true;
 
+    [Header("Otros triggers a desactivar tras ganar")]
+    [SerializeField] private GameObject[] extraTriggersToDisable;
+
+    private Transform _player;
+    private Vector3 _returnPos;
+    private Quaternion _returnRot;
+
     // ── Propiedad pública ──────────────────────────────────────────────────────
     /// <summary>Posición / rotación que se asignará a la cámara de combate.</summary>
     public Transform CombatCameraAnchor => combatCameraAnchor;
@@ -49,6 +56,10 @@ public class InSceneCombatTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        _player = other.transform;
+        _returnPos = other.transform.position;
+        _returnRot = other.transform.rotation;
+
         if (_triggered) return;                                    // evitar doble activación
         if (!other.CompareTag("Player")) return;                   // sólo el jugador
         if (InSceneCombatController.Instance == null) return;      // controlador no existe
@@ -72,6 +83,18 @@ public class InSceneCombatTrigger : MonoBehaviour
     /// </summary>
     public void OnCombatWon()
     {
+        if (extraTriggersToDisable != null)
+            foreach (var t in extraTriggersToDisable) if (t != null) t.SetActive(false);
+
+        if (_player != null)
+        {
+            var cc = _player.GetComponent<CharacterController>();
+            if (cc != null) cc.enabled = false;
+            _player.SetPositionAndRotation(_returnPos, _returnRot);
+            if (cc != null) cc.enabled = true;
+            Physics.SyncTransforms();
+        }
+
         // Ocultar los visuales del enemigo en el mundo
         if (enemyVisuals != null)
         {
