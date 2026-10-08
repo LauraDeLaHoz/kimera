@@ -8,11 +8,14 @@ using UnityEngine;
 // través de InSceneCombatController (sin cambio de escena).
 //
 // Uso básico en Inspector:
-//   · Enemies         — EnemyData[] que se cargarán en el combate
-//   · CombatCameraAnchor — Transform cuya posición/rotación usará la cámara
-//   · EnemyVisuals    — GOs (sprites/modelos) visibles en exploración;
-//                       se desactivan cuando el jugador gana
-//   · OneTimeOnly     — si es true, el trigger se desactiva tras la victoria
+//   · Enemies          — EnemyData[] que se cargarán en el combate
+//   · PrerequisiteFlagId — flag de StoryFlags que debe estar puesto para que el
+//                        combate pueda iniciar (ej. 'guia_encontrada'). Vacío =
+//                        sin requisito, se activa apenas el jugador entra.
+//   · CombatCameraAnchor — (ya no se usa para la cámara; se deja por compatibilidad)
+//   · EnemyVisuals     — GOs (sprites/modelos) visibles en exploración;
+//                        se desactivan cuando el jugador gana
+//   · OneTimeOnly      — si es true, el trigger se desactiva tras la victoria
 // ─────────────────────────────────────────────────────────────────────────────
 public class InSceneCombatTrigger : MonoBehaviour
 {
@@ -20,6 +23,14 @@ public class InSceneCombatTrigger : MonoBehaviour
     [Header("Combate")]
     [Tooltip("Enemigos que aparecerán en este combate.")]
     [SerializeField] private EnemyData[] enemies;
+
+    [Header("Requisito previo")]
+    [Tooltip("Flag de StoryFlags que debe estar puesto para que este combate pueda " +
+             "iniciar. Ej: 'guia_encontrada' = el jugador ya terminó la conversación " +
+             "con la guía. Mientras no esté puesto, entrar al volumen no hace nada " +
+             "(y si el jugador ya estaba parado adentro, el combate arranca solo " +
+             "apenas se cumple). Dejalo vacío para no pedir ningún requisito.")]
+    [SerializeField] private string prerequisiteFlagId;
 
     [Header("Cámara")]
     [Tooltip("Transform cuya posición y rotación usará la cámara de combate. " +
@@ -36,12 +47,19 @@ public class InSceneCombatTrigger : MonoBehaviour
              "Si es false, el combate puede repetirse cada vez que el jugador entre.")]
     [SerializeField] private bool oneTimeOnly = true;
 
-    // ── Propiedad pública ──────────────────────────────────────────────────────
+    // ── Propiedades públicas ───────────────────────────────────────────────────
     /// <summary>Posición / rotación que se asignará a la cámara de combate.</summary>
     public Transform CombatCameraAnchor => combatCameraAnchor;
 
+    /// <summary>True si no hay requisito, o si el flag requerido ya está puesto.</summary>
+    public bool PrerequisiteMet =>
+        string.IsNullOrEmpty(prerequisiteFlagId) ||
+        (StoryFlags.Instance != null && StoryFlags.Instance.IsSet(prerequisiteFlagId));
+
     // ── Estado ─────────────────────────────────────────────────────────────────
     private bool _triggered = false;
+    private bool _warnedNoEnemies = false;
+    private bool _waitingForPrerequisite = false;
 
     // ══════════════════════════════════════════════════════════════════════════
     // Unity – detección de colisión
@@ -49,12 +67,54 @@ public class InSceneCombatTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (!other.CompareTag("Player")) return;
+
+        // Si entra y todavía no se cumple el requisito, lo anotamos: así, si el
+        // requisito se cumple mientras el jugador sigue parado adentro, el
+        // combate arranca solo (ver OnTriggerStay).
+        if (!PrerequisiteMet)
+        {
+            _waitingForPrerequisite = true;
+            return;
+        }
+
+        TryStartCombat(other);
+    }
+
+    // Solo actúa en el caso "entré sin cumplir el requisito y ahora ya lo
+    // cumplí sin salir del volumen". No interfiere con el resto de los casos
+    // (por ejemplo, volver del combate al mismo lugar no re-dispara nada).
+    private void OnTriggerStay(Collider other)
+    {
+        if (!_waitingForPrerequisite) return;
+        if (!other.CompareTag("Player")) return;
+        if (!PrerequisiteMet) return;
+
+        _waitingForPrerequisite = false;
+        TryStartCombat(other);
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+            _waitingForPrerequisite = false;
+    }
+
+    private void TryStartCombat(Collider other)
+    {
         if (_triggered) return;                                    // evitar doble activación
         if (!other.CompareTag("Player")) return;                   // sólo el jugador
+        if (!PrerequisiteMet) return;                              // todavía no es el momento
         if (InSceneCombatController.Instance == null) return;      // controlador no existe
+        if (InSceneCombatController.Instance.IsInCombat) return;   // ya hay un combate en curso
+
         if (enemies == null || enemies.Length == 0)
         {
-            Debug.LogWarning($"[InSceneCombatTrigger] '{name}' no tiene enemigos asignados.", this);
+            if (!_warnedNoEnemies)
+            {
+                Debug.LogWarning($"[InSceneCombatTrigger] '{name}' no tiene enemigos asignados.", this);
+                _warnedNoEnemies = true;
+            }
             return;
         }
 

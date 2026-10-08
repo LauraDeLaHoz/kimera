@@ -43,6 +43,22 @@ public class OneShotTrigger : MonoBehaviour
              "al dispararse por primera vez. Ej: el punto del motín completa 'Explora la ciudad'.")]
     public QuestData completesQuest;
 
+    [Header("Spawnear un objeto físico en el mundo (opcional)")]
+    [Tooltip("Para objetos especiales que además de sumarse al inventario/mutación " +
+             "necesitan aparecer como prop 3D en la escena (ej. la cola de iguana que " +
+             "entrega el carnicero). Se instancia una sola vez, en Spawn Point.")]
+    public GameObject spawnPrefab;
+
+    [Tooltip("Dónde aparece spawnPrefab. Si lo dejás vacío, se usa la posición de este mismo GameObject. " +
+             "Para una mutación que queda pegada al cuerpo del jugador (ej. la cola de iguana), " +
+             "asigná acá un Transform que sea HIJO del Player (ej. un punto cerca de la cadera).")]
+    public Transform spawnPoint;
+
+    [Tooltip("Si está activo, el objeto instanciado se vuelve HIJO de 'Spawn Point' " +
+             "(en vez de quedar suelto en el mundo) — así se mueve y rota junto con " +
+             "el Player para siempre, como una parte más de su cuerpo.")]
+    public bool parentToSpawnPoint = false;
+
     [Header("Encadenado")]
     [Tooltip("Se invoca SOLO la primera vez. Acá conectás: activar el siguiente " +
              "punto del recorrido, spawnear algo, etc.")]
@@ -73,6 +89,15 @@ public class OneShotTrigger : MonoBehaviour
 
         if (completesQuest != null && QuestManager.Instance != null)
             QuestManager.Instance.CompleteQuestManually(completesQuest);
+
+        if (spawnPrefab != null)
+        {
+            Transform point = spawnPoint != null ? spawnPoint : transform;
+            GameObject spawned = Instantiate(spawnPrefab, point.position, point.rotation);
+
+            if (parentToSpawnPoint)
+                spawned.transform.SetParent(point, true);
+        }
 
         onFirstTrigger?.Invoke();
         return true;

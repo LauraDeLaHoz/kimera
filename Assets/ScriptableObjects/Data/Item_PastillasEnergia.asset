@@ -9,14 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5927d572625f42479a7826aa95bdd97, type: 3}
-  m_Name: DialogoCarniceria_Variables
+  m_Script: {fileID: 11500000, guid: fe6599c0376259e4ba52d76170732468, type: 3}
+  m_Name: Item_PastillasEnergia
   m_EditorClassIdentifier: 
-  _variables:
-  - _name: carniceriaRevisada
-    _type: 1
-    _saveToPrefs: 0
-    _boolValue: 0
-    _intValue: 0
-    _floatValue: 0
-    _stringValue: 
+  itemName: 'Pastillas De Energia '
+  icon: {fileID: 0}
+  description: Recupera 30 puntos de PE
+  effect: 2
+  value: 3
+  quantity: 3
