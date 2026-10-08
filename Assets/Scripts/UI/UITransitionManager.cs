@@ -9,6 +9,16 @@ public class UITransitionManager : MonoBehaviour
     public GameObject panelInicio;
     public GameObject panelFinal;
 
+    //Cinemática Juanma
+    public GameObject panelDiapositivas;
+    
+    [Header("Diapositivas")]
+    public Image imagenDiapositiva;
+    public Sprite[] diapositivas = new Sprite[10];
+    
+    private int indiceDiapositivaActual;
+    private bool esperandoDiapositivas = false;
+
     [Header("Overlay")]
     public Image overlayImage;
     public float fadeDuration = 0.5f;
@@ -41,8 +51,23 @@ public class UITransitionManager : MonoBehaviour
     {
         panelInicio.SetActive(true);
         panelFinal.SetActive(false);
+
+        //Cinemática Juanma
+        if (panelDiapositivas != null)
+        {
+            panelDiapositivas.SetActive(false); 
+        }
+
         overlayImage.color = Color.black;
         StartCoroutine(Fade(0f));
+    }
+
+    void Update()
+    {
+        if (esperandoDiapositivas && Input.GetMouseButtonDown(0))
+        {
+            AvanzarDiapositiva();
+        }
     }
 
     // ─── API pública ───────────────────────────────────
@@ -79,6 +104,19 @@ public class UITransitionManager : MonoBehaviour
             cam.transform.rotation, waypointB.rotation,
             cam.fieldOfView, cam.fieldOfView,
             durationAtoB));
+
+        //DiapositivasJuanma
+        if (panelDiapositivas != null && diapositivas.Length > 0)
+        {
+            indiceDiapositivaActual = 0;
+            MostrarDiapositivaActual();
+            panelDiapositivas.SetActive(true);
+            esperandoDiapositivas = true;
+
+            yield return new WaitUntil(() => !esperandoDiapositivas);
+
+            panelDiapositivas.SetActive(false);
+        }
 
         // Tramo 2: WP2 → WP3 (zoom in hacia la ventana)
         yield return StartCoroutine(AnimateCamera(
@@ -165,4 +203,29 @@ public class UITransitionManager : MonoBehaviour
     }
 
     float EaseInOut(float t) => t * t * (3f - 2f * t);
+
+    //Metodos diapositivas
+    public void AvanzarDiapositiva()
+    {
+        if (!esperandoDiapositivas) return;
+
+        audioManager?.PlayClick();
+        indiceDiapositivaActual++;
+
+        if (indiceDiapositivaActual < diapositivas.Length)
+        {
+            MostrarDiapositivaActual();
+        } else
+        {
+            esperandoDiapositivas = false;
+        }
+    }
+
+    public void MostrarDiapositivaActual()
+    {
+        if (imagenDiapositiva != null && diapositivas[indiceDiapositivaActual] != null)
+        {
+            imagenDiapositiva.sprite = diapositivas[indiceDiapositivaActual];
+        }
+    }
 }
