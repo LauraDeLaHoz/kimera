@@ -89,6 +89,7 @@ public class InSceneCombatController : MonoBehaviour
     private Vector3 _savedPlayerPosition;
     private Quaternion _savedPlayerRotation;
     private bool _playerWasTeleported;
+    private float _hungerAtCombatStart = 1f;
 
     public bool IsInCombat { get; private set; }
     public EnemyData[] CurrentEnemies => _currentEnemies;
@@ -129,6 +130,8 @@ public class InSceneCombatController : MonoBehaviour
     {
         if (IsInCombat) return;
         IsInCombat = true;
+        if (HungerSystem.Instance != null)
+            _hungerAtCombatStart = HungerSystem.Instance.HungerPercent;
         _currentEnemies = enemies;
         _currentTrigger = trigger;
         StartCoroutine(TransitionIntoCombat(enemies, trigger != null ? trigger.CombatCameraAnchor : null));
@@ -138,6 +141,12 @@ public class InSceneCombatController : MonoBehaviour
     public void RetryCombat()
     {
         IsInCombat = true;
+        if (HungerSystem.Instance != null)
+        {
+            float missing = (_hungerAtCombatStart - HungerSystem.Instance.HungerPercent) * 100f;
+            if (missing > 0f) HungerSystem.Instance.Eat(missing);
+        }
+
         StartCoroutine(TransitionIntoCombat(
             _currentEnemies,
             _currentTrigger != null ? _currentTrigger.CombatCameraAnchor : null));
@@ -196,6 +205,7 @@ public class InSceneCombatController : MonoBehaviour
             combatCamera.transform.SetPositionAndRotation(
                 explorationCamera.transform.position, explorationCamera.transform.rotation);
             combatCamera.fieldOfView = explorationCamera.fieldOfView;
+            Physics.SyncTransforms();
         }
         if (explorationCamera != null) explorationCamera.enabled = false;
         if (combatCamera != null) combatCamera.enabled = true;
@@ -224,6 +234,7 @@ public class InSceneCombatController : MonoBehaviour
                 _savedPlayerPosition = playerTransform.position;
                 _savedPlayerRotation = playerTransform.rotation;
                 _playerWasTeleported = true;
+
             }
             playerTransform.SetPositionAndRotation(playerCombatSpot.position, playerCombatSpot.rotation);
         }
@@ -317,6 +328,7 @@ public class InSceneCombatController : MonoBehaviour
         {
             playerTransform.SetPositionAndRotation(_savedPlayerPosition, _savedPlayerRotation);
             _playerWasTeleported = false;
+
         }
 
         // Re-activar movimiento + volver a animación de exploración
@@ -448,22 +460,8 @@ public class InSceneCombatController : MonoBehaviour
         SoundManager.Instance?.PlayVictoryJingle();
         combatUI?.PlayPlayerVictoryAnimation();
 
-        if (!LevelUpData.IsBossFight)
-        {
-            // PostCombatFlow mostrará la pantalla de nivel subido y
-            // luego llamará a StartBossFight() → IsInCombat debe estar false
-            // para que la nueva llamada pueda proceder.
-            IsInCombat = false;
-            _currentTrigger?.OnCombatWon();
-        }
-        else
-        {
-            // Boss derrotado — PostCombatFlow.ShowBossEndScreen mostrará la pantalla final.
-            // NO iniciamos TransitionOutOfCombat aquí: el overlay de PostCombatFlow necesita
-            // que el canvas de combate siga visible. La transición se dispara cuando el jugador
-            // hace clic en "Volver al inicio" → ReturnToExploration().
-            IsInCombat = false;
-        }
+        IsInCombat = false;
+        _currentTrigger?.OnCombatWon();
     }
 
     private void OnCombatDefeat()

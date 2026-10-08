@@ -127,6 +127,7 @@ public class CombatUI : MonoBehaviour
     // Runtime quantity snapshot — never modifies ScriptableObject assets
     private readonly Dictionary<ItemData, int> _runtimeQty = new Dictionary<ItemData, int>();
 
+
     // ── Lifecycle ──────────────────────────────────────────────────────────────
 
     private void Awake()
@@ -488,17 +489,8 @@ public class CombatUI : MonoBehaviour
         StartCoroutine(FadeInRoutine());
     }
 
-    public void ShowVictoryScreen()
-    {
-        EnablePlayerActions(false);
-        victoryScreen?.SetActive(true);
-    }
-
-    public void ShowDefeatScreen()
-    {
-        EnablePlayerActions(false);
-        defeatScreen?.SetActive(true);
-    }
+    public void ShowVictoryScreen() { EnablePlayerActions(false); }
+    public void ShowDefeatScreen() { EnablePlayerActions(false); }
 
     // Llamar desde el inicializador de combate antes de comenzar.
     // Crea un snapshot de cantidades en runtime — nunca modifica el ScriptableObject.
