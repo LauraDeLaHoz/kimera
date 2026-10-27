@@ -13,7 +13,7 @@ public class UITransitionManager : MonoBehaviour
     public GameObject panelDiapositivas;
     
     [Header("Diapositivas")]
-    public Image imagenDiapositiva;
+    public SpriteRenderer spriteRendererDiapositiva;
     public Sprite[] diapositivas = new Sprite[10];
     
     private int indiceDiapositivaActual;
@@ -223,9 +223,9 @@ public class UITransitionManager : MonoBehaviour
 
     public void MostrarDiapositivaActual()
     {
-        if (imagenDiapositiva != null && diapositivas[indiceDiapositivaActual] != null)
+        if (spriteRendererDiapositiva != null && diapositivas[indiceDiapositivaActual] != null)
         {
-            imagenDiapositiva.sprite = diapositivas[indiceDiapositivaActual];
+            spriteRendererDiapositiva.sprite = diapositivas[indiceDiapositivaActual];
         }
     }
 }
