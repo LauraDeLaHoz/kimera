@@ -47,7 +47,14 @@ public class InSceneCombatTrigger : MonoBehaviour
              "Si es false, el combate puede repetirse cada vez que el jugador entre.")]
     [SerializeField] private bool oneTimeOnly = true;
 
-    // ── Propiedades públicas ───────────────────────────────────────────────────
+    [Header("Otros triggers a desactivar tras ganar")]
+    [SerializeField] private GameObject[] extraTriggersToDisable;
+
+    private Transform _player;
+    private Vector3 _returnPos;
+    private Quaternion _returnRot;
+
+    // ── Propiedad pública ──────────────────────────────────────────────────────
     /// <summary>Posición / rotación que se asignará a la cámara de combate.</summary>
     public Transform CombatCameraAnchor => combatCameraAnchor;
 
@@ -67,41 +74,10 @@ public class InSceneCombatTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.CompareTag("Player")) return;
+        _player = other.transform;
+        _returnPos = other.transform.position;
+        _returnRot = other.transform.rotation;
 
-        // Si entra y todavía no se cumple el requisito, lo anotamos: así, si el
-        // requisito se cumple mientras el jugador sigue parado adentro, el
-        // combate arranca solo (ver OnTriggerStay).
-        if (!PrerequisiteMet)
-        {
-            _waitingForPrerequisite = true;
-            return;
-        }
-
-        TryStartCombat(other);
-    }
-
-    // Solo actúa en el caso "entré sin cumplir el requisito y ahora ya lo
-    // cumplí sin salir del volumen". No interfiere con el resto de los casos
-    // (por ejemplo, volver del combate al mismo lugar no re-dispara nada).
-    private void OnTriggerStay(Collider other)
-    {
-        if (!_waitingForPrerequisite) return;
-        if (!other.CompareTag("Player")) return;
-        if (!PrerequisiteMet) return;
-
-        _waitingForPrerequisite = false;
-        TryStartCombat(other);
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
-            _waitingForPrerequisite = false;
-    }
-
-    private void TryStartCombat(Collider other)
-    {
         if (_triggered) return;                                    // evitar doble activación
         if (!other.CompareTag("Player")) return;                   // sólo el jugador
         if (!PrerequisiteMet) return;                              // todavía no es el momento
@@ -132,6 +108,18 @@ public class InSceneCombatTrigger : MonoBehaviour
     /// </summary>
     public void OnCombatWon()
     {
+        if (extraTriggersToDisable != null)
+            foreach (var t in extraTriggersToDisable) if (t != null) t.SetActive(false);
+
+        if (_player != null)
+        {
+            var cc = _player.GetComponent<CharacterController>();
+            if (cc != null) cc.enabled = false;
+            _player.SetPositionAndRotation(_returnPos, _returnRot);
+            if (cc != null) cc.enabled = true;
+            Physics.SyncTransforms();
+        }
+
         // Ocultar los visuales del enemigo en el mundo
         if (enemyVisuals != null)
         {

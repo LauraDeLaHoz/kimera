@@ -1855,6 +1855,7 @@ MonoBehaviour:
           m_YAdvance: 0
       m_FeatureLookupFlags: 0
     - m_FirstAdjustmentRecord:
+<<<<<<< HEAD
         m_GlyphIndex: 965
         m_GlyphValueRecord:
           m_XPlacement: 0
@@ -1870,6 +1871,8 @@ MonoBehaviour:
           m_YAdvance: 0
       m_FeatureLookupFlags: 0
     - m_FirstAdjustmentRecord:
+=======
+>>>>>>> origin/Rama-Juanma
         m_GlyphIndex: 967
         m_GlyphValueRecord:
           m_XPlacement: 0

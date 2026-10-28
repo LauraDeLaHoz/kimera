@@ -1,0 +1,707 @@
+fileFormatVersion: 2
+guid: 6a9be68558c42ee4f80cd462a3c51507
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: "Caminar lateral atra\u0301s  (1)_0"
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 6
+        width: 475
+        height: 1384
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 664eee7582b356049ae4666acc3b8c30
+      internalID: 372958711
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Caminar lateral atra\u0301s  (1)_1"
+      rect:
+        serializedVersion: 2
+        x: 492
+        y: 30
+        width: 371
+        height: 1354
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a2c9ff90414a6b847ae470a607257826
+      internalID: 1559013045
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Caminar lateral atra\u0301s  (1)_2"
+      rect:
+        serializedVersion: 2
+        x: 509
+        y: 1089
+        width: 7
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f9612ef3f43dc9c4f8df3c0d7faef506
+      internalID: 285069104
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Caminar lateral atra\u0301s  (1)_3"
+      rect:
+        serializedVersion: 2
+        x: 845
+        y: 0
+        width: 410
+        height: 1384
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 16, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8e749ef781c89284a9f8bc71309ea9b4
+      internalID: -580488319
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Caminar lateral atra\u0301s  (1)_4"
+      rect:
+        serializedVersion: 2
+        x: 1249
+        y: 0
+        width: 351
+        height: 1384
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39b896f4682513744b09d86ca81af824
+      internalID: 1759381247
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Caminar lateral atra\u0301s  (1)_5"
+      rect:
+        serializedVersion: 2
+        x: 508
+        y: 1067
+        width: 5
+        height: 4
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d8bacb9d40e1cc4d8a464a1f8c14025
+      internalID: -1309526485
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Caminar lateral atra\u0301s  (1)_6"
+      rect:
+        serializedVersion: 2
+        x: 506
+        y: 1044
+        width: 7
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bad590bd60f3faa48a190c1182abe813
+      internalID: 2104584625
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Caminar lateral atra\u0301s  (1)_7"
+      rect:
+        serializedVersion: 2
+        x: 484
+        y: 1012
+        width: 6
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82f4f12b9969713448d10de83d4394f2
+      internalID: 143154390
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Caminar lateral atra\u0301s  (1)_8"
+      rect:
+        serializedVersion: 2
+        x: 509
+        y: 1016
+        width: 5
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8f88ca4f3ed751443a1d4c7c6412af4a
+      internalID: -795275222
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Caminar lateral atra\u0301s  (1)_9"
+      rect:
+        serializedVersion: 2
+        x: 487
+        y: 999
+        width: 5
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a959bef17d50ab40a1ab1ceb4a655b3
+      internalID: 1715919473
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Caminar lateral atra\u0301s  (1)_10"
+      rect:
+        serializedVersion: 2
+        x: 481
+        y: 988
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ec0308c89df431e4cb7ba3fc1da25d81
+      internalID: 171145986
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Caminar lateral atra\u0301s  (1)_11"
+      rect:
+        serializedVersion: 2
+        x: 504
+        y: 988
+        width: 7
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2652a3239f510e549a4a30e081f3eec5
+      internalID: -986278482
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Caminar lateral atra\u0301s  (1)_12"
+      rect:
+        serializedVersion: 2
+        x: 485
+        y: 960
+        width: 5
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6523d18fd5af71d42a9b4694bad9d659
+      internalID: 980778602
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Caminar lateral atra\u0301s  (1)_13"
+      rect:
+        serializedVersion: 2
+        x: 481
+        y: 904
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e47c0eaa5b441f34e8cfa4fffee60884
+      internalID: -592767430
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Caminar lateral atra\u0301s  (1)_14"
+      rect:
+        serializedVersion: 2
+        x: 502
+        y: 591
+        width: 13
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f585db7a2a6b05747b6455fc8715f9d6
+      internalID: 1795712762
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Caminar lateral atra\u0301s  (1)_15"
+      rect:
+        serializedVersion: 2
+        x: 501
+        y: 427
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9af934af9f62e5048b846705b2f46aab
+      internalID: -358777249
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Caminar lateral atra\u0301s  (1)_16"
+      rect:
+        serializedVersion: 2
+        x: 317
+        y: 23
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a32d8a66170b7d34caa3abc1a17f3935
+      internalID: 912636053
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Caminar lateral atra\u0301s  (1)_17"
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 13
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3788098ab3ff88a44b98ff132bbe04ad
+      internalID: 1073965210
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Caminar lateral atra\u0301s  (1)_18"
+      rect:
+        serializedVersion: 2
+        x: 338
+        y: 18
+        width: 5
+        height: 4
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd4a2c1c9b6d1f34b82597577a420007
+      internalID: -2047348107
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Caminar lateral atra\u0301s  (1)_19"
+      rect:
+        serializedVersion: 2
+        x: 823
+        y: 21
+        width: 17
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e90a2b0b3895f084dba6f8bb7aa01372
+      internalID: -1466610581
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Caminar lateral atra\u0301s  (1)_20"
+      rect:
+        serializedVersion: 2
+        x: 1109
+        y: 17
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c7ead14fce46a1247b588d7ea49914f4
+      internalID: 1124801633
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Caminar lateral atra\u0301s  (1)_21"
+      rect:
+        serializedVersion: 2
+        x: 387
+        y: 9
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13463daa0437d6442adbe8d847f0b990
+      internalID: 1129267851
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Caminar lateral atra\u0301s  (1)_22"
+      rect:
+        serializedVersion: 2
+        x: 1120
+        y: 7
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 70628f9cec6f41e4f9576418cc856f10
+      internalID: -177503110
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Caminar lateral atra\u0301s  (1)_23"
+      rect:
+        serializedVersion: 2
+        x: 1130
+        y: 12
+        width: 5
+        height: 4
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0744582318b32b9478f5d8953bc8b95d
+      internalID: 2106989441
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Caminar lateral atra\u0301s  (1)_24"
+      rect:
+        serializedVersion: 2
+        x: 1179
+        y: 3
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5b0aaf85a259df043801d5b3c006cc29
+      internalID: 2050132512
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 3dfed9bf7749d6e4d82cf461d80abad4
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      "Caminar lateral atra\u0301s  (1)_0": 372958711
+      "Caminar lateral atra\u0301s  (1)_1": 1559013045
+      "Caminar lateral atra\u0301s  (1)_10": 171145986
+      "Caminar lateral atra\u0301s  (1)_11": -986278482
+      "Caminar lateral atra\u0301s  (1)_12": 980778602
+      "Caminar lateral atra\u0301s  (1)_13": -592767430
+      "Caminar lateral atra\u0301s  (1)_14": 1795712762
+      "Caminar lateral atra\u0301s  (1)_15": -358777249
+      "Caminar lateral atra\u0301s  (1)_16": 912636053
+      "Caminar lateral atra\u0301s  (1)_17": 1073965210
+      "Caminar lateral atra\u0301s  (1)_18": -2047348107
+      "Caminar lateral atra\u0301s  (1)_19": -1466610581
+      "Caminar lateral atra\u0301s  (1)_2": 285069104
+      "Caminar lateral atra\u0301s  (1)_20": 1124801633
+      "Caminar lateral atra\u0301s  (1)_21": 1129267851
+      "Caminar lateral atra\u0301s  (1)_22": -177503110
+      "Caminar lateral atra\u0301s  (1)_23": 2106989441
+      "Caminar lateral atra\u0301s  (1)_24": 2050132512
+      "Caminar lateral atra\u0301s  (1)_3": -580488319
+      "Caminar lateral atra\u0301s  (1)_4": 1759381247
+      "Caminar lateral atra\u0301s  (1)_5": -1309526485
+      "Caminar lateral atra\u0301s  (1)_6": 2104584625
+      "Caminar lateral atra\u0301s  (1)_7": 143154390
+      "Caminar lateral atra\u0301s  (1)_8": -795275222
+      "Caminar lateral atra\u0301s  (1)_9": 1715919473
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
