@@ -1,0 +1,944 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8799929420724487879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a32a464d8ccff4e40a60c45b40a1e648, type: 3}
+  m_Name: Sentence Node
+  m_EditorClassIdentifier: 
+  NodeGraph: {fileID: 11400000}
+  Rect:
+    serializedVersion: 2
+    x: 1108
+    y: 92
+    width: 190
+    height: 135
+  IsDragging: 1
+  IsSelected: 0
+  _sentence:
+    CharacterName: PP
+    Text: "Pues cada vez que como cierta parte del cuerpo de un animal, termina adapt\xE1ndose
+      esa parte del cuerpo en el m\xEDo, y se convierte en algo parecido a una habilidad."
+    CharacterSprite: {fileID: 21300000, guid: ad6659c64d8dffc46bfc40352da22548, type: 3}
+  ParentNodes: []
+  ChildNode: {fileID: 5396049016264389754}
+  _isExternalFunc: 0
+  _externalFunctionName: 
+  CharacterNameKey: 
+  SentenceTextKey: 
+--- !u!114 &-8341454148385790485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a32a464d8ccff4e40a60c45b40a1e648, type: 3}
+  m_Name: Sentence Node
+  m_EditorClassIdentifier: 
+  NodeGraph: {fileID: 11400000}
+  Rect:
+    serializedVersion: 2
+    x: 2048
+    y: 146
+    width: 190
+    height: 135
+  IsDragging: 1
+  IsSelected: 0
+  _sentence:
+    CharacterName: PP
+    Text: "Y adem\xE1s no quiero comer otros animales."
+    CharacterSprite: {fileID: 21300000, guid: ad6659c64d8dffc46bfc40352da22548, type: 3}
+  ParentNodes: []
+  ChildNode: {fileID: -5783129522191291399}
+  _isExternalFunc: 0
+  _externalFunctionName: 
+  CharacterNameKey: 
+  SentenceTextKey: 
+--- !u!114 &-7796636940889985811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a32a464d8ccff4e40a60c45b40a1e648, type: 3}
+  m_Name: Sentence Node
+  m_EditorClassIdentifier: 
+  NodeGraph: {fileID: 11400000}
+  Rect:
+    serializedVersion: 2
+    x: 4782
+    y: 311
+    width: 190
+    height: 135
+  IsDragging: 1
+  IsSelected: 0
+  _sentence:
+    CharacterName: "Gu\xEDa"
+    Text: "Creo que por este mismo mot\xEDn no podremos pasar directamente por la
+      calle central, sino que nos tocar\xE1 tomar un camino distinto."
+    CharacterSprite: {fileID: 21300000, guid: df6276d4b2e92234abae1a8a69f34291, type: 3}
+  ParentNodes: []
+  ChildNode: {fileID: -1033714446797202460}
+  _isExternalFunc: 0
+  _externalFunctionName: 
+  CharacterNameKey: 
+  SentenceTextKey: 
+--- !u!114 &-5783129522191291399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a32a464d8ccff4e40a60c45b40a1e648, type: 3}
+  m_Name: Sentence Node
+  m_EditorClassIdentifier: 
+  NodeGraph: {fileID: 11400000}
+  Rect:
+    serializedVersion: 2
+    x: 2300
+    y: 171
+    width: 190
+    height: 135
+  IsDragging: 1
+  IsSelected: 0
+  _sentence:
+    CharacterName: "Gu\xEDa"
+    Text: "S\xED, entiendo."
+    CharacterSprite: {fileID: 21300000, guid: df6276d4b2e92234abae1a8a69f34291, type: 3}
+  ParentNodes: []
+  ChildNode: {fileID: -3838814626781780869}
+  _isExternalFunc: 0
+  _externalFunctionName: 
+  CharacterNameKey: 
+  SentenceTextKey: 
+--- !u!114 &-4949345483924833892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a32a464d8ccff4e40a60c45b40a1e648, type: 3}
+  m_Name: Sentence Node
+  m_EditorClassIdentifier: 
+  NodeGraph: {fileID: 11400000}
+  Rect:
+    serializedVersion: 2
+    x: 100
+    y: 263
+    width: 190
+    height: 135
+  IsDragging: 1
+  IsSelected: 0
+  _sentence:
+    CharacterName: "Gu\xEDa"
+    Text: "S\xEDgueme, tenemos que tomar el camino alternativo."
+    CharacterSprite: {fileID: 21300000, guid: df6276d4b2e92234abae1a8a69f34291, type: 3}
+  ParentNodes: []
+  ChildNode: {fileID: 755001608262881073}
+  _isExternalFunc: 0
+  _externalFunctionName: 
+  CharacterNameKey: 
+  SentenceTextKey: 
+--- !u!114 &-4893303988896922718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54f4b3c64aaf434ea0df52154c1c7680, type: 3}
+  m_Name: External Function Node
+  m_EditorClassIdentifier: 
+  NodeGraph: {fileID: 11400000}
+  Rect:
+    serializedVersion: 2
+    x: 5683
+    y: 389
+    width: 190
+    height: 80
+  IsDragging: 1
+  IsSelected: 0
+  _functionName: CompleteTalkNPC
+  _description: 
+  ParentNodes: []
+  ChildNode: {fileID: -2835927409330694180}
+--- !u!114 &-4311404245277565762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a32a464d8ccff4e40a60c45b40a1e648, type: 3}
+  m_Name: Sentence Node
+  m_EditorClassIdentifier: 
+  NodeGraph: {fileID: 11400000}
+  Rect:
+    serializedVersion: 2
+    x: 5218
+    y: 366
+    width: 190
+    height: 135
+  IsDragging: 1
+  IsSelected: 0
+  _sentence:
+    CharacterName: "Gu\xEDa"
+    Text: "Creo que te servir\xE1 en caso de que tengamos alg\xFAn tipo de problema
+      con alguien"
+    CharacterSprite: {fileID: 21300000, guid: df6276d4b2e92234abae1a8a69f34291, type: 3}
+  ParentNodes: []
+  ChildNode: {fileID: 5735748734341345533}
+  _isExternalFunc: 0
+  _externalFunctionName: 
+  CharacterNameKey: 
+  SentenceTextKey: 
+--- !u!114 &-3838814626781780869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a32a464d8ccff4e40a60c45b40a1e648, type: 3}
+  m_Name: Sentence Node
+  m_EditorClassIdentifier: 
+  NodeGraph: {fileID: 11400000}
+  Rect:
+    serializedVersion: 2
+    x: 2537
+    y: 198
+    width: 190
+    height: 135
+  IsDragging: 1
+  IsSelected: 0
+  _sentence:
+    CharacterName: "Gu\xEDa"
+    Text: "Qu\xE9 extra\xF1o... y entiendo que por eso mismo te eligieran a ti para
+      esta haza\xF1a."
+    CharacterSprite: {fileID: 21300000, guid: df6276d4b2e92234abae1a8a69f34291, type: 3}
+  ParentNodes: []
+  ChildNode: {fileID: -1278656795687326268}
+  _isExternalFunc: 0
+  _externalFunctionName: 
+  CharacterNameKey: 
+  SentenceTextKey: 
+--- !u!114 &-3071282404158014674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a32a464d8ccff4e40a60c45b40a1e648, type: 3}
+  m_Name: Sentence Node
+  m_EditorClassIdentifier: 
+  NodeGraph: {fileID: 11400000}
+  Rect:
+    serializedVersion: 2
+    x: 587
+    y: 71
+    width: 190
+    height: 135
+  IsDragging: 1
+  IsSelected: 0
+  _sentence:
+    CharacterName: "Gu\xEDa"
+    Text: "S\xED, me dijeron que iba a ser un animal mutado y me imagin\xE9 un ser
+      raro, pero te ves bastante normal."
+    CharacterSprite: {fileID: 21300000, guid: df6276d4b2e92234abae1a8a69f34291, type: 3}
+  ParentNodes: []
+  ChildNode: {fileID: 7857736708787465693}
+  _isExternalFunc: 0
+  _externalFunctionName: 
+  CharacterNameKey: 
+  SentenceTextKey: 
+--- !u!114 &-2835927409330694180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54f4b3c64aaf434ea0df52154c1c7680, type: 3}
+  m_Name: External Function Node
+  m_EditorClassIdentifier: 
+  NodeGraph: {fileID: 11400000}
+  Rect:
+    serializedVersion: 2
+    x: 5910
+    y: 393
+    width: 190
+    height: 80
+  IsDragging: 1
+  IsSelected: 0
+  _functionName: EndDialogue
+  _description: 
+  ParentNodes: []
+  ChildNode: {fileID: 0}
+--- !u!114 &-2376568819660383444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a32a464d8ccff4e40a60c45b40a1e648, type: 3}
+  m_Name: Sentence Node
+  m_EditorClassIdentifier: 
+  NodeGraph: {fileID: 11400000}
+  Rect:
+    serializedVersion: 2
+    x: 3936
+    y: 246
+    width: 190
+    height: 135
+  IsDragging: 1
+  IsSelected: 0
+  _sentence:
+    CharacterName: "Gu\xEDa"
+    Text: "No quieren que salgamos de la ciudad porque ser\xEDa para ellos m\xE1s
+      dif\xEDcil controlarnos."
+    CharacterSprite: {fileID: 21300000, guid: df6276d4b2e92234abae1a8a69f34291, type: 3}
+  ParentNodes: []
+  ChildNode: {fileID: 807074435801689358}
+  _isExternalFunc: 0
+  _externalFunctionName: 
+  CharacterNameKey: 
+  SentenceTextKey: 
+--- !u!114 &-1278656795687326268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a32a464d8ccff4e40a60c45b40a1e648, type: 3}
+  m_Name: Sentence Node
+  m_EditorClassIdentifier: 
+  NodeGraph: {fileID: 11400000}
+  Rect:
+    serializedVersion: 2
+    x: 2739
+    y: 216
+    width: 190
+    height: 135
+  IsDragging: 1
+  IsSelected: 0
+  _sentence:
+    CharacterName: "Gu\xEDa"
+    Text: Yo soy mantis, gusto conocerte. Amalia.
+    CharacterSprite: {fileID: 21300000, guid: df6276d4b2e92234abae1a8a69f34291, type: 3}
+  ParentNodes: []
+  ChildNode: {fileID: 4108720147208253994}
+  _isExternalFunc: 0
+  _externalFunctionName: 
+  CharacterNameKey: 
+  SentenceTextKey: 
+--- !u!114 &-1152395171896888804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a32a464d8ccff4e40a60c45b40a1e648, type: 3}
+  m_Name: Sentence Node
+  m_EditorClassIdentifier: 
+  NodeGraph: {fileID: 11400000}
+  Rect:
+    serializedVersion: 2
+    x: 3233
+    y: 234
+    width: 190
+    height: 135
+  IsDragging: 1
+  IsSelected: 0
+  _sentence:
+    CharacterName: "Gu\xEDa"
+    Text: "Necesitamos dirigirnos a la parte des\xE9rtica a buscar el banco de semillas.
+      Es un lugar bastante peligroso, sin embargo creo que lograremos llegar."
+    CharacterSprite: {fileID: 21300000, guid: df6276d4b2e92234abae1a8a69f34291, type: 3}
+  ParentNodes: []
+  ChildNode: {fileID: 3849062096770843385}
+  _isExternalFunc: 0
+  _externalFunctionName: 
+  CharacterNameKey: 
+  SentenceTextKey: 
+--- !u!114 &-1033714446797202460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a32a464d8ccff4e40a60c45b40a1e648, type: 3}
+  m_Name: Sentence Node
+  m_EditorClassIdentifier: 
+  NodeGraph: {fileID: 11400000}
+  Rect:
+    serializedVersion: 2
+    x: 4995
+    y: 342
+    width: 190
+    height: 155
+  IsDragging: 1
+  IsSelected: 0
+  _sentence:
+    CharacterName: "Gu\xEDa"
+    Text: "Y espera, antes de irnos toma esto: paquete de 3 pastillas de energ\xEDa,
+      recuperan 30 puntos de PE."
+    CharacterSprite: {fileID: 21300000, guid: df6276d4b2e92234abae1a8a69f34291, type: 3}
+  ParentNodes: []
+  ChildNode: {fileID: -4311404245277565762}
+  _isExternalFunc: 1
+  _externalFunctionName: FireGuia
+  CharacterNameKey: 
+  SentenceTextKey: 
+--- !u!114 &-434242569436646264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a32a464d8ccff4e40a60c45b40a1e648, type: 3}
+  m_Name: Sentence Node
+  m_EditorClassIdentifier: 
+  NodeGraph: {fileID: 11400000}
+  Rect:
+    serializedVersion: 2
+    x: 1806
+    y: 141
+    width: 190
+    height: 135
+  IsDragging: 1
+  IsSelected: 0
+  _sentence:
+    CharacterName: PP
+    Text: "Cada vez ser\xEDa un cuerpo m\xE1s mutado y raro."
+    CharacterSprite: {fileID: 21300000, guid: ad6659c64d8dffc46bfc40352da22548, type: 3}
+  ParentNodes: []
+  ChildNode: {fileID: -8341454148385790485}
+  _isExternalFunc: 0
+  _externalFunctionName: 
+  CharacterNameKey: 
+  SentenceTextKey: 
+--- !u!114 &-246170720715805766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a32a464d8ccff4e40a60c45b40a1e648, type: 3}
+  m_Name: Sentence Node
+  m_EditorClassIdentifier: 
+  NodeGraph: {fileID: 11400000}
+  Rect:
+    serializedVersion: 2
+    x: 356
+    y: 59
+    width: 190
+    height: 135
+  IsDragging: 1
+  IsSelected: 0
+  _sentence:
+    CharacterName: PP
+    Text: "S\xED, creo que es un poco obvio por mi aspecto, \xBFno?"
+    CharacterSprite: {fileID: 21300000, guid: ad6659c64d8dffc46bfc40352da22548, type: 3}
+  ParentNodes: []
+  ChildNode: {fileID: -3071282404158014674}
+  _isExternalFunc: 0
+  _externalFunctionName: 
+  CharacterNameKey: 
+  SentenceTextKey: 
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33f741ea10ebcf842a91c9b871dd032a, type: 3}
+  m_Name: DialogGuia
+  m_EditorClassIdentifier: 
+  NodesList:
+  - {fileID: 2296196142833928024}
+  - {fileID: 7258655495957157112}
+  - {fileID: -246170720715805766}
+  - {fileID: -3071282404158014674}
+  - {fileID: 7857736708787465693}
+  - {fileID: -8799929420724487879}
+  - {fileID: 5396049016264389754}
+  - {fileID: 3531841308673708922}
+  - {fileID: -434242569436646264}
+  - {fileID: -8341454148385790485}
+  - {fileID: -5783129522191291399}
+  - {fileID: -3838814626781780869}
+  - {fileID: -1278656795687326268}
+  - {fileID: 4108720147208253994}
+  - {fileID: -1152395171896888804}
+  - {fileID: 3849062096770843385}
+  - {fileID: 6722762074426652655}
+  - {fileID: -2376568819660383444}
+  - {fileID: 807074435801689358}
+  - {fileID: 3471818426834519030}
+  - {fileID: 8153337283346726610}
+  - {fileID: -7796636940889985811}
+  - {fileID: -1033714446797202460}
+  - {fileID: -4311404245277565762}
+  - {fileID: 5735748734341345533}
+  - {fileID: -4893303988896922718}
+  - {fileID: -2835927409330694180}
+  - {fileID: -4949345483924833892}
+  - {fileID: 755001608262881073}
+  VariablesConfig: {fileID: 11400000, guid: 266511d0a4036f443aa80130f3989a58, type: 2}
+  _localizationTableName: 
+  _characterNamesLocalizationName: 
+  NodeToDrawLineFrom: {fileID: 0}
+  LinePosition: {x: 0, y: 0}
+  IsLocalizationSetUp: 0
+--- !u!114 &755001608262881073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54f4b3c64aaf434ea0df52154c1c7680, type: 3}
+  m_Name: External Function Node
+  m_EditorClassIdentifier: 
+  NodeGraph: {fileID: 11400000}
+  Rect:
+    serializedVersion: 2
+    x: 328
+    y: 288
+    width: 190
+    height: 80
+  IsDragging: 1
+  IsSelected: 0
+  _functionName: EndDialogue
+  _description: 
+  ParentNodes: []
+  ChildNode: {fileID: 0}
+--- !u!114 &807074435801689358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a32a464d8ccff4e40a60c45b40a1e648, type: 3}
+  m_Name: Sentence Node
+  m_EditorClassIdentifier: 
+  NodeGraph: {fileID: 11400000}
+  Rect:
+    serializedVersion: 2
+    x: 4147
+    y: 267
+    width: 190
+    height: 135
+  IsDragging: 1
+  IsSelected: 0
+  _sentence:
+    CharacterName: "Gu\xEDa"
+    Text: "Sabes que por la falta de vegetaci\xF3n hay menos comida, cada vez hay
+      menos ox\xEDgeno y esto nos preocupa mucho. Por eso mismo queremos salir a
+      otros sitios a buscar cualquier cosa que nos pueda ayudar."
+    CharacterSprite: {fileID: 21300000, guid: df6276d4b2e92234abae1a8a69f34291, type: 3}
+  ParentNodes: []
+  ChildNode: {fileID: 3471818426834519030}
+  _isExternalFunc: 0
+  _externalFunctionName: 
+  CharacterNameKey: 
+  SentenceTextKey: 
+--- !u!114 &2296196142833928024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38789157e7795244280823d019530045, type: 3}
+  m_Name: Variable Condition Node
+  m_EditorClassIdentifier: 
+  NodeGraph: {fileID: 11400000}
+  Rect:
+    serializedVersion: 2
+    x: -197
+    y: 62
+    width: 240
+    height: 160
+  IsDragging: 1
+  IsSelected: 0
+  _variableName: guiaRevisada
+  _conditionType: 0
+  _boolTargetValue: 0
+  _intTargetValue: 0
+  _floatTargetValue: 0
+  _stringTargetValue: 
+  ParentNodes: []
+  TrueChildNode: {fileID: 7258655495957157112}
+  FalseChildNode: {fileID: -4949345483924833892}
+--- !u!114 &3471818426834519030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a32a464d8ccff4e40a60c45b40a1e648, type: 3}
+  m_Name: Sentence Node
+  m_EditorClassIdentifier: 
+  NodeGraph: {fileID: 11400000}
+  Rect:
+    serializedVersion: 2
+    x: 4357
+    y: 288
+    width: 190
+    height: 135
+  IsDragging: 1
+  IsSelected: 0
+  _sentence:
+    CharacterName: "Gu\xEDa"
+    Text: Pero los funcionarios no quieren que salgamos. Muy injusto.
+    CharacterSprite: {fileID: 21300000, guid: df6276d4b2e92234abae1a8a69f34291, type: 3}
+  ParentNodes: []
+  ChildNode: {fileID: 8153337283346726610}
+  _isExternalFunc: 0
+  _externalFunctionName: 
+  CharacterNameKey: 
+  SentenceTextKey: 
+--- !u!114 &3531841308673708922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a32a464d8ccff4e40a60c45b40a1e648, type: 3}
+  m_Name: Sentence Node
+  m_EditorClassIdentifier: 
+  NodeGraph: {fileID: 11400000}
+  Rect:
+    serializedVersion: 2
+    x: 1575
+    y: 125
+    width: 190
+    height: 135
+  IsDragging: 1
+  IsSelected: 0
+  _sentence:
+    CharacterName: PP
+    Text: Claro que no lo quiero probar.
+    CharacterSprite: {fileID: 21300000, guid: ad6659c64d8dffc46bfc40352da22548, type: 3}
+  ParentNodes: []
+  ChildNode: {fileID: -434242569436646264}
+  _isExternalFunc: 0
+  _externalFunctionName: 
+  CharacterNameKey: 
+  SentenceTextKey: 
+--- !u!114 &3849062096770843385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a32a464d8ccff4e40a60c45b40a1e648, type: 3}
+  m_Name: Sentence Node
+  m_EditorClassIdentifier: 
+  NodeGraph: {fileID: 11400000}
+  Rect:
+    serializedVersion: 2
+    x: 3446
+    y: 239
+    width: 190
+    height: 135
+  IsDragging: 1
+  IsSelected: 0
+  _sentence:
+    CharacterName: "Gu\xEDa"
+    Text: "Para eso tenemos que salir de la ciudad y tomar alg\xFAn tipo de veh\xEDculo
+      para llegar."
+    CharacterSprite: {fileID: 21300000, guid: df6276d4b2e92234abae1a8a69f34291, type: 3}
+  ParentNodes: []
+  ChildNode: {fileID: 6722762074426652655}
+  _isExternalFunc: 0
+  _externalFunctionName: 
+  CharacterNameKey: 
+  SentenceTextKey: 
+--- !u!114 &4108720147208253994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a32a464d8ccff4e40a60c45b40a1e648, type: 3}
+  m_Name: Sentence Node
+  m_EditorClassIdentifier: 
+  NodeGraph: {fileID: 11400000}
+  Rect:
+    serializedVersion: 2
+    x: 3000
+    y: 236
+    width: 190
+    height: 135
+  IsDragging: 1
+  IsSelected: 0
+  _sentence:
+    CharacterName: "Gu\xEDa"
+    Text: "Se demor\xF3 bastante el viaje, no recordaba que el pueblo quedara tan
+      lejos de la ciudad."
+    CharacterSprite: {fileID: 21300000, guid: df6276d4b2e92234abae1a8a69f34291, type: 3}
+  ParentNodes: []
+  ChildNode: {fileID: -1152395171896888804}
+  _isExternalFunc: 0
+  _externalFunctionName: 
+  CharacterNameKey: 
+  SentenceTextKey: 
+--- !u!114 &5396049016264389754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a32a464d8ccff4e40a60c45b40a1e648, type: 3}
+  m_Name: Sentence Node
+  m_EditorClassIdentifier: 
+  NodeGraph: {fileID: 11400000}
+  Rect:
+    serializedVersion: 2
+    x: 1331
+    y: 113
+    width: 190
+    height: 135
+  IsDragging: 1
+  IsSelected: 0
+  _sentence:
+    CharacterName: PP
+    Text: "No s\xE9, es raro. Por ejemplo, si como branquias de pescado, probablemente
+      podr\xEDa respirar debajo del agua luego"
+    CharacterSprite: {fileID: 21300000, guid: df6276d4b2e92234abae1a8a69f34291, type: 3}
+  ParentNodes: []
+  ChildNode: {fileID: 3531841308673708922}
+  _isExternalFunc: 0
+  _externalFunctionName: 
+  CharacterNameKey: 
+  SentenceTextKey: 
+--- !u!114 &5735748734341345533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a32a464d8ccff4e40a60c45b40a1e648, type: 3}
+  m_Name: Sentence Node
+  m_EditorClassIdentifier: 
+  NodeGraph: {fileID: 11400000}
+  Rect:
+    serializedVersion: 2
+    x: 5450
+    y: 370
+    width: 190
+    height: 135
+  IsDragging: 1
+  IsSelected: 0
+  _sentence:
+    CharacterName: "Gu\xEDa"
+    Text: "Ahora s\xED, vamos, s\xEDgueme."
+    CharacterSprite: {fileID: 21300000, guid: df6276d4b2e92234abae1a8a69f34291, type: 3}
+  ParentNodes: []
+  ChildNode: {fileID: -4893303988896922718}
+  _isExternalFunc: 0
+  _externalFunctionName: 
+  CharacterNameKey: 
+  SentenceTextKey: 
+--- !u!114 &6722762074426652655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a32a464d8ccff4e40a60c45b40a1e648, type: 3}
+  m_Name: Sentence Node
+  m_EditorClassIdentifier: 
+  NodeGraph: {fileID: 11400000}
+  Rect:
+    serializedVersion: 2
+    x: 3691
+    y: 248
+    width: 190
+    height: 135
+  IsDragging: 1
+  IsSelected: 0
+  _sentence:
+    CharacterName: "Gu\xEDa"
+    Text: "No s\xE9 si lo sab\xEDas, pero va a ser muy dif\xEDcil salir de la ciudad,
+      porque los mandatarios nos quieren confinados"
+    CharacterSprite: {fileID: 21300000, guid: df6276d4b2e92234abae1a8a69f34291, type: 3}
+  ParentNodes: []
+  ChildNode: {fileID: -2376568819660383444}
+  _isExternalFunc: 0
+  _externalFunctionName: 
+  CharacterNameKey: 
+  SentenceTextKey: 
+--- !u!114 &7258655495957157112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a32a464d8ccff4e40a60c45b40a1e648, type: 3}
+  m_Name: Sentence Node
+  m_EditorClassIdentifier: 
+  NodeGraph: {fileID: 11400000}
+  Rect:
+    serializedVersion: 2
+    x: 131
+    y: 53
+    width: 190
+    height: 135
+  IsDragging: 1
+  IsSelected: 0
+  _sentence:
+    CharacterName: "Gu\xEDa"
+    Text: tu eres..., cierto?
+    CharacterSprite: {fileID: 21300000, guid: df6276d4b2e92234abae1a8a69f34291, type: 3}
+  ParentNodes: []
+  ChildNode: {fileID: -246170720715805766}
+  _isExternalFunc: 0
+  _externalFunctionName: 
+  CharacterNameKey: 
+  SentenceTextKey: 
+--- !u!114 &7857736708787465693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a32a464d8ccff4e40a60c45b40a1e648, type: 3}
+  m_Name: Sentence Node
+  m_EditorClassIdentifier: 
+  NodeGraph: {fileID: 11400000}
+  Rect:
+    serializedVersion: 2
+    x: 835
+    y: 83
+    width: 190
+    height: 135
+  IsDragging: 1
+  IsSelected: 0
+  _sentence:
+    CharacterName: "Gu\xEDa"
+    Text: "\xBFC\xF3mo funciona eso de tu mutaci\xF3n?"
+    CharacterSprite: {fileID: 21300000, guid: df6276d4b2e92234abae1a8a69f34291, type: 3}
+  ParentNodes: []
+  ChildNode: {fileID: -8799929420724487879}
+  _isExternalFunc: 0
+  _externalFunctionName: 
+  CharacterNameKey: 
+  SentenceTextKey: 
+--- !u!114 &8153337283346726610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a32a464d8ccff4e40a60c45b40a1e648, type: 3}
+  m_Name: Sentence Node
+  m_EditorClassIdentifier: 
+  NodeGraph: {fileID: 11400000}
+  Rect:
+    serializedVersion: 2
+    x: 4572
+    y: 295
+    width: 190
+    height: 135
+  IsDragging: 1
+  IsSelected: 0
+  _sentence:
+    CharacterName: "Gu\xEDa"
+    Text: Por eso mismo hay una revuelta al final de esta calle.
+    CharacterSprite: {fileID: 21300000, guid: df6276d4b2e92234abae1a8a69f34291, type: 3}
+  ParentNodes: []
+  ChildNode: {fileID: -7796636940889985811}
+  _isExternalFunc: 0
+  _externalFunctionName: 
+  CharacterNameKey: 
+  SentenceTextKey: 

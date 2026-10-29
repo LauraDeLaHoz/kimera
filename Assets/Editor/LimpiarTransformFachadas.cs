@@ -1,36 +1,39 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using UnityEditorInternal;
 
 /// <summary>
 /// Herramienta de Editor para dejar "limpio" (Position 0,0,0 / Rotation 0,0,0 / Scale 1,1,1)
 /// el transform raiz de varios prefabs de fachada a la vez, SIN que cambien de aspecto.
 ///
-/// v2: a diferencia de la version anterior, ahora TAMBIEN arregla el caso en el que el root
-/// no esta limpio pero la malla YA esta movida a un hijo (por ejemplo "Malla" de una pasada
-/// anterior de esta misma herramienta, o cualquier otra jerarquia). Antes ese caso se
-/// saltaba con un warning de "revisalo a mano" y el root quedaba corrupto -> eso es
-/// exactamente lo que le paso a Casa1 y casa2 en este proyecto.
+/// v3 (FIX decoraciones): en el caso "el mesh esta directamente en el root", la version
+/// anterior le pasaba el transform del root (ej. escala 100 + rotacion) a un hijo nuevo
+/// "Malla", pero las DECORACIONES que ya eran hijos del root (rejas, puertas, macetas...)
+/// se quedaban colgando del root ya limpio. Como perdian la escala/rotacion de su padre,
+/// quedaban minusculas o mal ubicadas, escondidas dentro del mesh: parecia que habian
+/// desaparecido. Ahora esos hijos se sacan preservando su posicion ABSOLUTA, se limpia el
+/// root, y se vuelven a meter -> el aspecto final es identico al original.
 ///
-/// Como lo hace ahora:
-///  - Si el root tiene el Mesh directamente (como antes): crea un hijo "Malla", le copia el
-///    mesh/materiales, y le pasa el Position/Rotation/Scale que tenia el root.
-///  - Si el root YA tiene hijos (la malla esta mas abajo) pero el root no esta en 0/0/1:
-///    reemparenta cada hijo directo a null preservando su transform ABSOLUTO, limpia el
-///    root, y los vuelve a poner adentro. El resultado visual es identico, pero ahora el
-///    root queda en 0/0/1 de verdad.
-///  - Si detecta un numero impar de ejes con escala negativa en alguna malla (mirroring),
-///    avisa por consola: no lo arregla solo porque puede ser intencional, pero conviene
-///    revisarlo (normales invertidas = se puede ver "al reves" desde ciertos angulos).
+/// Ademas, el mesh se mueve a "Malla" copiando los componentes completos (MeshFilter,
+/// MeshRenderer y Colliders) con ComponentUtility, asi no se pierden sombras, light probes,
+/// motion vectors, etc.
+///
+/// Casos que cubre:
+///  - A) El root tiene el Mesh directamente: crea hijo "Malla" con mesh/renderer/colliders
+///       y el transform original del root; los hijos existentes conservan su aspecto.
+///  - B) El root no tiene mesh pero tiene hijos: reemparenta preservando el transform absoluto.
+///  - Avisa por consola si detecta escala espejada (numero impar de ejes negativos).
 ///
 /// USO:
 /// 1) Selecciona en la ventana Project los prefabs que queres corregir.
 /// 2) Menu Tools > Fachadas > Limpiar Transform Raiz (prefabs seleccionados).
-/// 3) Mira la consola: te dice cuantos corrigio, cuantos ya estaban limpios, y si algo
-///    quedo espejado.
+/// 3) Mira la consola.
 ///
-/// IMPORTANTE: hace una modificacion directa sobre los assets. Antes de correrlo asegurate
-/// de tener todo en control de versiones (o backup de la carpeta de prefabs).
+/// IMPORTANTE: modifica los assets directamente. Si un prefab ya fue limpiado con la version
+/// anterior, las decoraciones ya quedaron con transforms rotos en el asset: restauralo desde
+/// control de versiones/backup (o volve a armar el prefab desde la escena) y recien ahi
+/// corre esta version.
 /// </summary>
 public class LimpiarTransformFachadas
 {
@@ -83,10 +86,6 @@ public class LimpiarTransformFachadas
             && raiz.transform.rotation == Quaternion.identity
             && raiz.transform.localScale == Vector3.one;
 
-        MeshFilter mfRoot = raiz.GetComponent<MeshFilter>();
-        MeshRenderer mrRoot = raiz.GetComponent<MeshRenderer>();
-        bool tieneMeshEnRoot = mfRoot != null && mrRoot != null;
-
         if (yaLimpio)
         {
             Debug.Log($"{nombre}: ya estaba limpio, no se toca.");
@@ -94,78 +93,82 @@ public class LimpiarTransformFachadas
             return false;
         }
 
-        bool huboCambios = false;
+        MeshFilter mfRoot = raiz.GetComponent<MeshFilter>();
+        MeshRenderer mrRoot = raiz.GetComponent<MeshRenderer>();
+        bool tieneMeshEnRoot = mfRoot != null && mrRoot != null;
 
-        // Caso A: la malla esta directamente en el root -> comportamiento original,
-        // crear un hijo "Malla" y pasarle el mesh + el transform que tenia el root.
+        if (raiz.transform.localScale != Vector3.one && raiz.transform.childCount > 0)
+        {
+            // Escala uniforme (ej. 100,100,100) no deforma nada. Solo avisamos si es rara.
+            Vector3 s = raiz.transform.localScale;
+            bool uniforme = Mathf.Approximately(s.x, s.y) && Mathf.Approximately(s.y, s.z);
+            if (!uniforme)
+            {
+                Debug.LogWarning($"{nombre}: el root tiene escala NO uniforme {s}. Los hijos se " +
+                    "reemparentan preservando el aspecto, pero revisa el resultado por si " +
+                    "aparece alguna deformacion (shear).");
+            }
+        }
+
+        // Hijos directos ORIGINALES (decoraciones, etc.), antes de crear nada nuevo.
+        var hijosOriginales = new List<Transform>();
+        for (int i = 0; i < raiz.transform.childCount; i++)
+            hijosOriginales.Add(raiz.transform.GetChild(i));
+
+        // 1) Sacar los hijos conservando su transform ABSOLUTO.
+        foreach (Transform hijo in hijosOriginales)
+            hijo.SetParent(null, true);
+
+        // 2) Si el mesh esta en el root, pasarlo (completo) a un hijo "Malla" que se queda
+        //    con el transform original del root.
         if (tieneMeshEnRoot)
         {
+            Vector3 posOriginal = raiz.transform.position;
+            Quaternion rotOriginal = raiz.transform.rotation;
+            Vector3 escalaOriginal = raiz.transform.localScale;
+
             GameObject malla = new GameObject("Malla");
+            malla.layer = raiz.layer;
+            malla.tag = raiz.tag;
             malla.transform.SetParent(raiz.transform, false);
 
-            MeshFilter mfNuevo = malla.AddComponent<MeshFilter>();
-            mfNuevo.sharedMesh = mfRoot.sharedMesh;
-            MeshRenderer mrNuevo = malla.AddComponent<MeshRenderer>();
-            mrNuevo.sharedMaterials = mrRoot.sharedMaterials;
+            // Copia COMPLETA de los componentes (sombras, probes, motion vectors, etc.).
+            CopiarComponente(mfRoot, malla);
+            CopiarComponente(mrRoot, malla);
 
-            malla.transform.localPosition = raiz.transform.position;
-            malla.transform.localRotation = raiz.transform.rotation;
-            malla.transform.localScale = raiz.transform.localScale;
+            Collider[] colliders = raiz.GetComponents<Collider>();
+            foreach (Collider c in colliders)
+                CopiarComponente(c, malla);
 
-            Object.DestroyImmediate(mfRoot);
+            malla.transform.localPosition = posOriginal;
+            malla.transform.localRotation = rotOriginal;
+            malla.transform.localScale = escalaOriginal;
+
+            foreach (Collider c in colliders)
+                Object.DestroyImmediate(c);
             Object.DestroyImmediate(mrRoot);
-
-            raiz.transform.position = Vector3.zero;
-            raiz.transform.rotation = Quaternion.identity;
-            raiz.transform.localScale = Vector3.one;
-
-            huboCambios = true;
+            Object.DestroyImmediate(mfRoot);
         }
-        // Caso B (el que antes se saltaba con un warning): el root no esta limpio, pero
-        // ya tiene hijos -- la malla vive mas abajo en la jerarquia. Empujamos el transform
-        // del root hacia cada hijo directo (preservando su aspecto absoluto) y dejamos el
-        // root en 0/0/1.
-        else if (raiz.transform.childCount > 0)
-        {
-            if (raiz.transform.localScale != Vector3.one)
-            {
-                Debug.LogWarning($"{nombre}: el root tenia escala distinta de 1 ademas de " +
-                    "posicion/rotacion. Se reemparento igual preservando el aspecto, pero " +
-                    "revisa el resultado por si aparece alguna deformacion (shear).");
-            }
 
-            var hijos = new List<Transform>();
-            for (int i = 0; i < raiz.transform.childCount; i++)
-                hijos.Add(raiz.transform.GetChild(i));
+        // 3) Limpiar el root.
+        raiz.transform.position = Vector3.zero;
+        raiz.transform.rotation = Quaternion.identity;
+        raiz.transform.localScale = Vector3.one;
 
-            foreach (Transform hijo in hijos)
-                hijo.SetParent(null, true); // true = conserva su transform absoluto
-
-            raiz.transform.position = Vector3.zero;
-            raiz.transform.rotation = Quaternion.identity;
-            raiz.transform.localScale = Vector3.one;
-
-            foreach (Transform hijo in hijos)
-                hijo.SetParent(raiz.transform, true); // reconstruye la jerarquia, mismo aspecto
-
-            huboCambios = true;
-        }
-        else
-        {
-            // No tiene mesh en el root ni hijos de donde "sacar" el aspecto visual:
-            // no hay nada que preservar, se limpia directo.
-            raiz.transform.position = Vector3.zero;
-            raiz.transform.rotation = Quaternion.identity;
-            raiz.transform.localScale = Vector3.one;
-            huboCambios = true;
-        }
+        // 4) Devolver los hijos originales: mismo aspecto absoluto que antes.
+        foreach (Transform hijo in hijosOriginales)
+            hijo.SetParent(raiz.transform, true);
 
         AdvertirSiEstaEspejado(raiz, nombre);
 
-        if (huboCambios)
-            Debug.Log($"{nombre}: corregido.");
+        Debug.Log($"{nombre}: corregido ({hijosOriginales.Count} hijo(s) original(es) preservado(s)).");
+        return true;
+    }
 
-        return huboCambios;
+    static void CopiarComponente(Component origen, GameObject destino)
+    {
+        if (ComponentUtility.CopyComponent(origen))
+            ComponentUtility.PasteComponentAsNew(destino);
     }
 
     // Un numero impar de ejes con escala negativa invierte la malla (normales hacia

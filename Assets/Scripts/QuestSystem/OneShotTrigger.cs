@@ -1,54 +1,74 @@
-using UnityEngine;
+Ôªøusing UnityEngine;
 using UnityEngine.Events;
 
 /// <summary>
-/// Para beats narrativos que NO son una quest formal por sÌ mismos: el
-/// carnicero que da su Ìtem, la tienda, el monumento, el motÌn. Cosas que
+/// Para beats narrativos que NO son una quest formal por s√≠ mismos: el
+/// carnicero que da su √≠tem, la tienda, el monumento, el mot√≠n. Cosas que
 /// solo deben pasar UNA vez en toda la partida y opcionalmente:
 ///   - entregan un ItemData al inventario del jugador
 ///   - entregan/activan una MutationData (el poder de Instinto)
-///   - completan una quest formal de QuestManager (ej. el motÌn completa
+///   - completan una quest formal de QuestManager (ej. el mot√≠n completa
 ///     "Explora la ciudad")
 ///   - encadenan lo que sigue (activar el siguiente punto del recorrido,
-///     spawnear algo, etc.) vÌa UnityEvent
+///     spawnear algo, etc.) v√≠a UnityEvent
 ///
-/// No lo actives directamente desde OnTriggerEnter si depende de una acciÛn
-/// del jugador (como "hablar con el vendedor"): llam· a Fire() desde el punto
-/// exacto donde ocurre esa acciÛn (por ejemplo, desde un external function del
-/// di·logo, ver DialogEventsBinder). AsÌ evit·s el problema de "doble trigger":
+/// No lo actives directamente desde OnTriggerEnter si depende de una acci√≥n
+/// del jugador (como "hablar con el vendedor"): llam√° a Fire() desde el punto
+/// exacto donde ocurre esa acci√≥n (por ejemplo, desde un external function del
+/// di√°logo, ver DialogEventsBinder). As√≠ evit√°s el problema de "doble trigger":
 /// un solo punto de entrada, un solo flag.
 /// </summary>
 public class OneShotTrigger : MonoBehaviour
 {
-    [Tooltip("ID ˙nico en todo el proyecto. Ej: 'carniceria_completada', 'motin_completado'.")]
+    [Tooltip("ID √∫nico en todo el proyecto. Ej: 'carniceria_completada', 'motin_completado'.")]
     public string flagId;
 
-    [Header("Logro / notificaciÛn de item (opcional)")]
+    [Header("Logro / notificaci√≥n de item (opcional)")]
     [Tooltip("Si se llena, se muestra como toast al dispararse por primera vez. " +
-             "Sirve tanto para logros de historia como para 'Obtuviste tu primer Ìtem!'.")]
+             "Sirve tanto para logros de historia como para 'Obtuviste tu primer √≠tem!'.")]
     [TextArea]
     public string achievementText;
 
+    [Tooltip("√çcono que aparece en el toast de esta notificaci√≥n (ej. el √≠cono del item o de la mutaci√≥n). " +
+             "Se muestra en el cuadro de √≠cono del toast. Opcional: sin √≠cono, el cuadro se oculta.")]
+    public Sprite achievementIcon;
+
     [Header("Recompensa (opcional)")]
-    [Tooltip("Si se asigna, se agrega autom·ticamente a PlayerInventory al dispararse por primera vez.")]
+    [Tooltip("Si se asigna, se agrega autom√°ticamente a PlayerInventory al dispararse por primera vez.")]
     public ItemData itemReward;
 
-    [Tooltip("Si se asigna, se vuelve la mutaciÛn/Instinto activa del jugador " +
+    [Tooltip("Si se asigna, se vuelve la mutaci√≥n/Instinto activa del jugador " +
              "(PlayerMutationState) al dispararse por primera vez. Ej: el " +
              "carnicero entregando 'Cola de Iguana'.")]
     public MutationData mutationReward;
 
     [Header("Completar quest (opcional)")]
     [Tooltip("Si se asigna, se llama a QuestManager.CompleteQuestManually con esta quest " +
-             "al dispararse por primera vez. Ej: el punto del motÌn completa 'Explora la ciudad'.")]
+             "al dispararse por primera vez. Ej: el punto del mot√≠n completa 'Explora la ciudad'.")]
     public QuestData completesQuest;
 
+    [Header("Spawnear un objeto f√≠sico en el mundo (opcional)")]
+    [Tooltip("Para objetos especiales que adem√°s de sumarse al inventario/mutaci√≥n " +
+             "necesitan aparecer como prop 3D en la escena (ej. la cola de iguana que " +
+             "entrega el carnicero). Se instancia una sola vez, en Spawn Point.")]
+    public GameObject spawnPrefab;
+
+    [Tooltip("D√≥nde aparece spawnPrefab. Si lo dej√°s vac√≠o, se usa la posici√≥n de este mismo GameObject. " +
+             "Para una mutaci√≥n que queda pegada al cuerpo del jugador (ej. la cola de iguana), " +
+             "asign√° ac√° un Transform que sea HIJO del Player (ej. un punto cerca de la cadera).")]
+    public Transform spawnPoint;
+
+    [Tooltip("Si est√° activo, el objeto instanciado se vuelve HIJO de 'Spawn Point' " +
+             "(en vez de quedar suelto en el mundo) ¬ó as√≠ se mueve y rota junto con " +
+             "el Player para siempre, como una parte m√°s de su cuerpo.")]
+    public bool parentToSpawnPoint = false;
+
     [Header("Encadenado")]
-    [Tooltip("Se invoca SOLO la primera vez. Ac· conect·s: activar el siguiente " +
+    [Tooltip("Se invoca SOLO la primera vez. Ac√° conect√°s: activar el siguiente " +
              "punto del recorrido, spawnear algo, etc.")]
     public UnityEvent onFirstTrigger;
 
-    /// <summary>Llam· esto desde donde ocurra el evento real (fin de di·logo, botÛn, etc.).</summary>
+    /// <summary>Llam√° esto desde donde ocurra el evento real (fin de di√°logo, bot√≥n, etc.).</summary>
     public bool Fire()
     {
         if (StoryFlags.Instance == null)
@@ -58,11 +78,11 @@ public class OneShotTrigger : MonoBehaviour
         }
 
         if (!StoryFlags.Instance.TryConsume(flagId))
-            return false; // ya se disparÛ antes, no hacer nada
+            return false; // ya se dispar√≥ antes, no hacer nada
 
-        if (!string.IsNullOrEmpty(achievementText) && NotificationManager.Instance != null)
+        if ((!string.IsNullOrEmpty(achievementText) || achievementIcon != null) && NotificationManager.Instance != null)
         {
-            NotificationManager.Instance.ShowAchievement(achievementText);
+            NotificationManager.Instance.ShowAchievement(achievementText, achievementIcon);
         }
 
         if (itemReward != null)
@@ -74,11 +94,20 @@ public class OneShotTrigger : MonoBehaviour
         if (completesQuest != null && QuestManager.Instance != null)
             QuestManager.Instance.CompleteQuestManually(completesQuest);
 
+        if (spawnPrefab != null)
+        {
+            Transform point = spawnPoint != null ? spawnPoint : transform;
+            GameObject spawned = Instantiate(spawnPrefab, point.position, point.rotation);
+
+            if (parentToSpawnPoint)
+                spawned.transform.SetParent(point, true);
+        }
+
         onFirstTrigger?.Invoke();
         return true;
     }
 
-    /// <summary>VersiÛn para usar directo como trigger fÌsico de zona (ej: "llegar a este punto"), sin condiciÛn previa.</summary>
+    /// <summary>Versi√≥n para usar directo como trigger f√≠sico de zona (ej: "llegar a este punto"), sin condici√≥n previa.</summary>
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))

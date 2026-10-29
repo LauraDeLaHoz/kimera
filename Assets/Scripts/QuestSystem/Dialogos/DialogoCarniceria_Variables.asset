@@ -12,4 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5927d572625f42479a7826aa95bdd97, type: 3}
   m_Name: DialogoCarniceria_Variables
   m_EditorClassIdentifier: 
-  _variables: []
+  _variables:
+  - _name: carniceriaRevisada
+    _type: 1
+    _saveToPrefs: 0
+    _boolValue: 0
+    _intValue: 0
+    _floatValue: 0
+    _stringValue: 
